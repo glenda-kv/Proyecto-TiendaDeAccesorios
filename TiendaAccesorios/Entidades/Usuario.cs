@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace TiendaAccesorios.Entidades;
 
@@ -13,6 +14,8 @@ public class Usuario
     public bool Estado { get; set; }
     public DateTime FechaRegistro { get; set; }
 
+    [JsonIgnore]
     public ICollection<Venta>? Ventas { get; set; }
 
 }
+

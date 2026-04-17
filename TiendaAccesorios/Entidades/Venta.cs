@@ -6,6 +6,8 @@ public class Venta
 {
      public Guid IdVenta { get; set; }
     public DateTime FechaVenta { get; set; }
+    public required string ModalidadPago { get; set; }
+    public int? TotalCuotas { get; set; }
     public decimal Total { get; set; }
     public required string EstadoVenta { get; set; }
 

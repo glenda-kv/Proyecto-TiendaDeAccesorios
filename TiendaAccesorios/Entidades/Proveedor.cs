@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace TiendaAccesorios.Entidades;
 
@@ -12,6 +13,7 @@ public class Proveedor
     public bool Estado { get; set; }
     public DateTime FechaRegistro { get; set; }
 
+    [JsonIgnore]
     public ICollection<Producto>? Productos { get; set; }
 }
 

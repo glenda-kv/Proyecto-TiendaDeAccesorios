@@ -109,10 +109,6 @@ public class AppDbContext : DbContext
             .HasMaxLength(50);
 
         modelBuilder.Entity<Producto>()
-            .Property(x => x.Imagen)
-            .HasMaxLength(300);
-
-        modelBuilder.Entity<Producto>()
             .Property(x => x.Precio)
             .HasColumnType("decimal(10,2)");
 
@@ -136,6 +132,10 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Venta>()
             .Property(x => x.Total)
             .HasColumnType("decimal(10,2)");
+
+        modelBuilder.Entity<Venta>()
+            .Property(x => x.ModalidadPago)
+            .HasMaxLength(30);
 
         modelBuilder.Entity<Venta>()
             .Property(x => x.EstadoVenta)
@@ -177,10 +177,6 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Pago>()
             .HasKey(x => x.IdPago);
-
-        modelBuilder.Entity<Pago>()
-            .Property(x => x.ModalidadPago)
-            .HasMaxLength(30);
 
         modelBuilder.Entity<Pago>()
             .Property(x => x.MetodoPago)

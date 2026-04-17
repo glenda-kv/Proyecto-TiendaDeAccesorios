@@ -54,12 +54,10 @@ namespace TiendaAccesorios.Controllers
             if (existing == null)
                 return NotFound();
 
-            existing.ModalidadPago = pago.ModalidadPago;
+            
             existing.MetodoPago = pago.MetodoPago;
             existing.MontoPagado = pago.MontoPagado;
             existing.SaldoPendiente = pago.SaldoPendiente;
-            existing.NumeroCuota = pago.NumeroCuota;
-            existing.TotalCuotas = pago.TotalCuotas;
             existing.Interes = pago.Interes;
             existing.FechaPago = pago.FechaPago;
             existing.FechaVencimiento = pago.FechaVencimiento;
@@ -82,3 +80,5 @@ namespace TiendaAccesorios.Controllers
         }
     }
 }
+
+

@@ -60,7 +60,6 @@ namespace TiendaAccesorios.Controllers
             existing.Color = producto.Color;
             existing.Precio = producto.Precio;
             existing.Stock = producto.Stock;
-            existing.Imagen = producto.Imagen;
             existing.Estado = producto.Estado;
 
             await _contexto.SaveChangesAsync();
