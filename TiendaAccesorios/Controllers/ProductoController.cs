@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TiendaAccesorios.Data;
+using TiendaAccesorios.DTO.Producto.AgregarProducto;
 using TiendaAccesorios.Entidades;
 
 namespace TiendaAccesorios.Controllers
@@ -36,12 +37,39 @@ namespace TiendaAccesorios.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Producto>> CreateProducto([FromBody] Producto producto)
+        public async Task<ActionResult<AgregarProductoOutput>> CreateProducto([FromBody] AgregarProductoInput producto)
         {
-            _contexto.Productos.Add(producto);
+            var entrada = new Producto
+            {
+                NombreProducto = producto.NombreProducto,
+                Descripcion = producto.Descripcion,
+                Marca = producto.Marca,
+                Color = producto.Color,
+                Precio = producto.Precio,
+                Stock = producto.Stock,
+                IdCategoria = producto.IdCategoria,
+                IdProveedor = producto.IdProveedor
+            };
+
+            entrada.IdProducto = Guid.NewGuid();
+            entrada.FechaRegistro = DateTime.Now;
+            entrada.Estado = true;
+
+            _contexto.Productos.Add(entrada);
             await _contexto.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProducto), new { id = producto.IdProducto }, producto);
+            var salida = new AgregarProductoOutput
+            {
+                IdProducto = entrada.IdProducto,
+                NombreProducto = entrada.NombreProducto,
+                Descripcion = entrada.Descripcion,
+                Marca = entrada.Marca,
+                Color = entrada.Color,
+                Precio = entrada.Precio,
+                Stock = entrada.Stock
+            };
+
+            return CreatedAtAction(nameof(GetProducto), new { id = salida.IdProducto }, salida);
         }
 
         [HttpPut("{id}")]
