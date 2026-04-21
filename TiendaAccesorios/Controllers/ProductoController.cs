@@ -41,7 +41,7 @@ namespace TiendaAccesorios.Controllers
         {
             var entrada = new Producto
             {
-                NombreProducto = producto.NombreProducto,
+                IdProducto = producto.IdProducto,
                 Descripcion = producto.Descripcion,
                 Marca = producto.Marca,
                 Color = producto.Color,
