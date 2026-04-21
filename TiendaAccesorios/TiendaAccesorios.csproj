@@ -16,9 +16,8 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="DTO\" />
-    <Folder Include="DTO\Producto\" />
     <Folder Include="DTO\Producto\AgregarProducto\" />
+    <Folder Include="DTO\Venta\" />
     <Folder Include="Entidades\" />
   </ItemGroup>
 
