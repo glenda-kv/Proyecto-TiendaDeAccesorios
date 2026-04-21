@@ -41,7 +41,7 @@ namespace TiendaAccesorios.Controllers
         {
             var entrada = new Producto
             {
-                IdProducto = producto.IdProducto,
+                NombreProducto = producto.NombreProducto,
                 Descripcion = producto.Descripcion,
                 Marca = producto.Marca,
                 Color = producto.Color,
@@ -58,6 +58,9 @@ namespace TiendaAccesorios.Controllers
             _contexto.Productos.Add(entrada);
             await _contexto.SaveChangesAsync();
 
+            var categoria = await _contexto.Categorias.FindAsync(entrada.IdCategoria);
+            var proveedor = await _contexto.Proveedores.FindAsync(entrada.IdProveedor);
+
             var salida = new AgregarProductoOutput
             {
                 IdProducto = entrada.IdProducto,
@@ -66,7 +69,9 @@ namespace TiendaAccesorios.Controllers
                 Marca = entrada.Marca,
                 Color = entrada.Color,
                 Precio = entrada.Precio,
-                Stock = entrada.Stock
+                Stock = entrada.Stock,
+                NombreCategoria = categoria?.NombreCategoria,
+                NombreProveedor = proveedor?.NombreCompleto
             };
 
             return CreatedAtAction(nameof(GetProducto), new { id = salida.IdProducto }, salida);
