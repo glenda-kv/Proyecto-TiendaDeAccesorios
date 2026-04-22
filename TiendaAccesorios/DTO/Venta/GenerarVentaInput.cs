@@ -8,14 +8,14 @@ public class GenerarVentaInput
     public Guid IdUsuario { get; set; }
     public required string ModalidadPago { get; set; }
 
-    public List<DetalleVenta> Detalles { get; set; } = new();
+    public List<DetalleVentas> Detalles { get; set; } = new();
 }
 
-public class DetalleVenta
+public class DetalleVentas
 {
     public required string NombreProducto { get; set; }
-    public string? Marca { get; set; }
-    public string? Color { get; set; }
+    public required string Marca { get; set; }
+    public required string Color { get; set; }
     public int Cantidad { get; set; }
 }
 
