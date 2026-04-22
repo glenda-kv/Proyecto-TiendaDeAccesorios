@@ -4,7 +4,7 @@ namespace TiendaAccesorios.Entidades;
 
 public class Venta
 {
-     public Guid IdVenta { get; set; }
+    public Guid IdVenta { get; set; }
     public DateTime FechaVenta { get; set; }
     public required string ModalidadPago { get; set; }
     public int? TotalCuotas { get; set; }
