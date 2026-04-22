@@ -12,8 +12,8 @@ public class GenerarVentaInput
     [MinLength(3, ErrorMessage = "La modalidad de pago es inválida")]
     public required string ModalidadPago { get; set; }
 
-    [Required(ErrorMessage = "Debe ingresar almenos un producto ")]
-    [MinLength(3, ErrorMessage = "La venta debe tener almenos un producto")]
+    [Required(ErrorMessage = "Debe ingresar al menos un producto ")]
+    [MinLength(1, ErrorMessage = "La venta debe tener almenos un producto")]
     public List<DetalleVentas> Detalles { get; set; } = new();
 }
 
@@ -28,7 +28,7 @@ public class DetalleVentas
     [Required(ErrorMessage = "El color es obligatorio")]
     public required string Color { get; set; }
 
-    [Range(1, int.MaxValue, ErrorMessage = "El nombre del producto es obligatorio")]
+    [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0")]
     public int Cantidad { get; set; }
 }
 
