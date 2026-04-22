@@ -15,9 +15,10 @@ public class VentaController : BaseApiController
     {
         _context = context;
     }
+    
 
     [HttpPost]
-    public async Task<ActionResult<Venta>> GenerarVenta(GenerarVentaInput entrada)
+    public async Task<ActionResult<GenerarVentaOutput>> GenerarVenta(GenerarVentaInput entrada)
     {
         decimal total = 0;
 
@@ -30,6 +31,8 @@ public class VentaController : BaseApiController
             IdUsuario = entrada.IdUsuario,
             DetallesVenta = new List<DetalleVenta>()
         };
+
+        var detallesSalida = new List<DetalleVentaSalida>();
 
         foreach (var item in entrada.Detalles)
         {
@@ -45,7 +48,6 @@ public class VentaController : BaseApiController
             if (producto.Stock < item.Cantidad)
                 return BadRequest($"Stock insuficiente para {producto.NombreProducto}");
 
-
             producto.Stock -= item.Cantidad;
 
             var subtotal = producto.Precio * item.Cantidad;
@@ -59,6 +61,16 @@ public class VentaController : BaseApiController
                 Subtotal = subtotal
             });
 
+            detallesSalida.Add(new DetalleVentaSalida
+            {
+                NombreProducto = producto.NombreProducto,
+                Marca = producto.Marca,
+                Color = producto.Color,
+                Cantidad = item.Cantidad,
+                PrecioUnitario = producto.Precio,
+                Subtotal = subtotal
+            });
+
             total += subtotal;
         }
 
@@ -67,6 +79,15 @@ public class VentaController : BaseApiController
         _context.Ventas.Add(venta);
         await _context.SaveChangesAsync();
 
-        return Ok(venta);
+        var salida = new GenerarVentaOutput
+        {
+            IdVenta = venta.IdVenta,
+            FechaVenta = venta.FechaVenta,
+            ModalidadPago = venta.ModalidadPago,
+            Total = venta.Total,
+            Detalles = detallesSalida
+        };
+
+        return CreatedAtAction(nameof(GenerarVenta),new { id = venta.IdVenta },salida);
     }
 }

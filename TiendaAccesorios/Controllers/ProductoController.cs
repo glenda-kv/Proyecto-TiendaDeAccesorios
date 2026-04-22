@@ -52,7 +52,7 @@ namespace TiendaAccesorios.Controllers
             };
 
             entrada.IdProducto = Guid.NewGuid();
-            entrada.FechaRegistro = DateTime.Now;
+            entrada.FechaRegistro = DateTime.UtcNow;
             entrada.Estado = true;
 
             _contexto.Productos.Add(entrada);
