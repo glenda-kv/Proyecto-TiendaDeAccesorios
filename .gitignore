@@ -1,5 +1,71 @@
+# =========================
+# BUILD / COMPILACIÓN
+# =========================
 bin/
 obj/
+out/
+
+# =========================
+# VISUAL STUDIO / VS CODE
+# =========================
 .vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+
+# Archivos de usuario
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
+
+# =========================
+# LOGS
+# =========================
+*.log
+
+# =========================
+# BASE DE DATOS LOCAL (por si usas SQLite)
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# CONFIGURACIÓN SENSIBLE
+# =========================
+appsettings.Development.json
+appsettings.Local.json
+.env
+.env.*
+
+# =========================
+# ARCHIVOS TEMPORALES
+# =========================
+*.tmp
+*.temp
+
+# =========================
+# PUBLICACIÓN
+# =========================
+publish/
+*.publishsettings
+
+# =========================
+# CERTIFICADOS
+# =========================
+*.pfx
+*.key
+
+# =========================
+# SISTEMA OPERATIVO
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# NODE (por si usas frontend)
+# =========================
+node_modules/
