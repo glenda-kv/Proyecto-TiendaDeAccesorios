@@ -15,23 +15,26 @@ public class VentaController : BaseApiController
     {
         _context = context;
     }
-    
 
     [HttpPost]
-    public async Task<ActionResult<GenerarVentaOutput>> GenerarVenta(GenerarVentaInput entrada)
+    public async Task<ActionResult<GenerarVentaOutput>> GenerarVenta([FromBody] GenerarVentaInput entrada)
     {
         decimal total = 0;
+
+        var cliente = await _context.Clientes.FindAsync(entrada.IdCliente);
+
+        if (cliente == null)
+            return BadRequest("El cliente no existe");
 
         var venta = new Venta
         {
             IdVenta = Guid.NewGuid(),
             FechaVenta = DateTime.UtcNow,
-            ModalidadPago = entrada.ModalidadPago,
-            EstadoVenta = "COMPLETADO",
-            IdUsuario = entrada.IdUsuario,
+            FormaDePago = entrada.FormaDePago,
+            IdCliente = entrada.IdCliente,
             DetallesVenta = new List<DetalleVenta>()
         };
-
+        
         var detallesSalida = new List<DetalleVentaSalida>();
 
         foreach (var item in entrada.Detalles)
@@ -55,6 +58,7 @@ public class VentaController : BaseApiController
             venta.DetallesVenta.Add(new DetalleVenta
             {
                 IdDetalleVenta = Guid.NewGuid(),
+                IdVenta = venta.IdVenta,
                 IdProducto = producto.IdProducto,
                 Cantidad = item.Cantidad,
                 PrecioUnitario = producto.Precio,
@@ -83,11 +87,13 @@ public class VentaController : BaseApiController
         {
             IdVenta = venta.IdVenta,
             FechaVenta = venta.FechaVenta,
-            ModalidadPago = venta.ModalidadPago,
+            FormaDePago = venta.FormaDePago,
             Total = venta.Total,
+            IdCliente = cliente.IdCliente,
+            NombreCliente = cliente.NombreCompleto,
             Detalles = detallesSalida
         };
 
-        return CreatedAtAction(nameof(GenerarVenta),new { id = venta.IdVenta },salida);
+        return CreatedAtAction(nameof(GenerarVenta), new { id = venta.IdVenta }, salida);
     }
 }

@@ -6,14 +6,11 @@ public class Venta
 {
     public Guid IdVenta { get; set; }
     public DateTime FechaVenta { get; set; }
-    public required string ModalidadPago { get; set; }
-    public int? TotalCuotas { get; set; }
+    public required string FormaDePago { get; set; }
     public decimal Total { get; set; }
-    public required string EstadoVenta { get; set; }
+    public Guid IdCliente { get; set; }
+    public Cliente? Cliente { get; set; }
 
-    public Guid IdUsuario { get; set; }
-    public Usuario? Usuario { get; set; }
+    public ICollection<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 
-    public ICollection<DetalleVenta>? DetallesVenta { get; set; }
-    public ICollection<Pago>? Pagos { get; set; }
 }

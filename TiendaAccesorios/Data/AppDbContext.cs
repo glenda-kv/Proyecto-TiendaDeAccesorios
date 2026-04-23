@@ -8,67 +8,34 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    public DbSet<Usuario> Usuarios { get; set; }
-    public DbSet<Proveedor> Proveedores { get; set; }
+    public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Producto> Productos { get; set; }
     public DbSet<Venta> Ventas { get; set; }
     public DbSet<DetalleVenta> DetallesVenta { get; set; }
-    public DbSet<Pago> Pagos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Tabla Usuario
-        modelBuilder.Entity<Usuario>()
-            .ToTable("Usuario");
-        
-        modelBuilder.Entity<Usuario>()
-            .HasKey(x => x.IdUsuario);
+        // Tabla Cliente
+        modelBuilder.Entity<Cliente>()
+            .ToTable("Cliente");
 
-        modelBuilder.Entity<Usuario>()
+        modelBuilder.Entity<Cliente>()
+            .HasKey(x => x.IdCliente);
+
+        modelBuilder.Entity<Cliente>()
             .Property(x => x.NombreCompleto)
             .HasMaxLength(100);
 
-        modelBuilder.Entity<Usuario>()
-            .Property(x => x.Correo)
-            .HasMaxLength(100);
+        modelBuilder.Entity<Cliente>()
+            .Property(x => x.Extension)
+            .HasMaxLength(2);
 
-        modelBuilder.Entity<Usuario>()
-            .Property(x => x.Contrasenia)
-            .HasMaxLength(255);
-
-        modelBuilder.Entity<Usuario>()
+        modelBuilder.Entity<Cliente>()
             .Property(x => x.Telefono)
             .HasMaxLength(20);
-
-        modelBuilder.Entity<Usuario>()
-            .Property(x => x.Rol)
-            .HasMaxLength(30);
-
-        // Tabla Proveedor
-        modelBuilder.Entity<Proveedor>()
-            .ToTable("Proveedor");
-
-        modelBuilder.Entity<Proveedor>()
-            .HasKey(x => x.IdProveedor);
-
-        modelBuilder.Entity<Proveedor>()
-            .Property(x => x.NombreCompleto)
-            .HasMaxLength(100);
-
-        modelBuilder.Entity<Proveedor>()
-            .Property(x => x.Telefono)
-            .HasMaxLength(20);
-
-        modelBuilder.Entity<Proveedor>()
-            .Property(x => x.Correo)
-            .HasMaxLength(100);
-
-        modelBuilder.Entity<Proveedor>()
-            .Property(x => x.Direccion)
-            .HasMaxLength(200);
 
         // Tabla Categoria
         modelBuilder.Entity<Categoria>()
@@ -80,10 +47,6 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Categoria>()
             .Property(x => x.NombreCategoria)
             .HasMaxLength(100);
-
-        modelBuilder.Entity<Categoria>()
-            .Property(x => x.Descripcion)
-            .HasMaxLength(200);
 
         // Tabla Producto
         modelBuilder.Entity<Producto>()
@@ -117,11 +80,6 @@ public class AppDbContext : DbContext
             .WithMany(x => x.Productos)
             .HasForeignKey(x => x.IdCategoria);
 
-        modelBuilder.Entity<Producto>()
-            .HasOne(x => x.Proveedor)
-            .WithMany(x => x.Productos)
-            .HasForeignKey(x => x.IdProveedor);
-
         // Tabla Venta
         modelBuilder.Entity<Venta>()
             .ToTable("Venta");
@@ -130,26 +88,22 @@ public class AppDbContext : DbContext
             .HasKey(x => x.IdVenta);
 
         modelBuilder.Entity<Venta>()
+            .Property(x => x.FormaDePago)
+            .HasMaxLength(30);
+
+        modelBuilder.Entity<Venta>()
             .Property(x => x.Total)
             .HasColumnType("decimal(10,2)");
 
         modelBuilder.Entity<Venta>()
-            .Property(x => x.ModalidadPago)
-            .HasMaxLength(30);
-
-        modelBuilder.Entity<Venta>()
-            .Property(x => x.EstadoVenta)
-            .HasMaxLength(30);
-
-        modelBuilder.Entity<Venta>()
-            .HasOne(x => x.Usuario)
+            .HasOne(x => x.Cliente)
             .WithMany(x => x.Ventas)
-            .HasForeignKey(x => x.IdUsuario);
+            .HasForeignKey(x => x.IdCliente);
 
         // Tabla DetalleVenta
         modelBuilder.Entity<DetalleVenta>()
             .ToTable("DetalleVenta");
-        
+
         modelBuilder.Entity<DetalleVenta>()
             .HasKey(x => x.IdDetalleVenta);
 
@@ -170,37 +124,5 @@ public class AppDbContext : DbContext
             .HasOne(x => x.Producto)
             .WithMany(x => x.DetallesVenta)
             .HasForeignKey(x => x.IdProducto);
-
-        // Tabla Pago
-        modelBuilder.Entity<Pago>()
-            .ToTable("Pago");
-
-        modelBuilder.Entity<Pago>()
-            .HasKey(x => x.IdPago);
-
-        modelBuilder.Entity<Pago>()
-            .Property(x => x.MetodoPago)
-            .HasMaxLength(30);
-
-        modelBuilder.Entity<Pago>()
-            .Property(x => x.MontoPagado)
-            .HasColumnType("decimal(10,2)");
-
-        modelBuilder.Entity<Pago>()
-            .Property(x => x.SaldoPendiente)
-            .HasColumnType("decimal(10,2)");
-
-        modelBuilder.Entity<Pago>()
-            .Property(x => x.Interes)
-            .HasColumnType("decimal(10,2)");
-
-        modelBuilder.Entity<Pago>()
-            .Property(x => x.EstadoPago)
-            .HasMaxLength(30);
-
-        modelBuilder.Entity<Pago>()
-            .HasOne(x => x.Venta)
-            .WithMany(x => x.Pagos)
-            .HasForeignKey(x => x.IdVenta);
     }
 }

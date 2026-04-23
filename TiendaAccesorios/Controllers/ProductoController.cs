@@ -7,9 +7,7 @@ using TiendaAccesorios.Entidades;
 
 namespace TiendaAccesorios.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductoController : ControllerBase
+    public class ProductoController : BaseApiController
     {
         private readonly AppDbContext _contexto;
 
@@ -17,21 +15,25 @@ namespace TiendaAccesorios.Controllers
         {
             _contexto = contexto;
         }
-
-        [HttpGet]
+         [HttpGet]
         public async Task<ActionResult<ICollection<Producto>>> GetProductos()
         {
-            var productos = await _contexto.Productos.ToListAsync();
+            var productos = await _contexto.Productos
+                .Include(x => x.Categoria)
+                .ToListAsync();
+
             return Ok(productos);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Producto>> GetProducto(Guid id)
         {
-            var producto = await _contexto.Productos.FindAsync(id);
+            var producto = await _contexto.Productos
+                .Include(x => x.Categoria)
+                .FirstOrDefaultAsync(x => x.IdProducto == id);
 
             if (producto == null)
-                return NotFound();
+                return NotFound("Producto no encontrado");
 
             return Ok(producto);
         }
@@ -39,6 +41,11 @@ namespace TiendaAccesorios.Controllers
         [HttpPost]
         public async Task<ActionResult<AgregarProductoOutput>> CreateProducto([FromBody] AgregarProductoInput producto)
         {
+            var categoria = await _contexto.Categorias.FindAsync(producto.IdCategoria);
+
+            if (categoria == null)
+                return BadRequest("La categoría no existe");
+
             var entrada = new Producto
             {
                 NombreProducto = producto.NombreProducto,
@@ -47,8 +54,7 @@ namespace TiendaAccesorios.Controllers
                 Color = producto.Color,
                 Precio = producto.Precio,
                 Stock = producto.Stock,
-                IdCategoria = producto.IdCategoria,
-                IdProveedor = producto.IdProveedor
+                IdCategoria = producto.IdCategoria
             };
 
             entrada.IdProducto = Guid.NewGuid();
@@ -57,9 +63,6 @@ namespace TiendaAccesorios.Controllers
 
             _contexto.Productos.Add(entrada);
             await _contexto.SaveChangesAsync();
-
-            var categoria = await _contexto.Categorias.FindAsync(entrada.IdCategoria);
-            var proveedor = await _contexto.Proveedores.FindAsync(entrada.IdProveedor);
 
             var salida = new AgregarProductoOutput
             {
@@ -70,22 +73,24 @@ namespace TiendaAccesorios.Controllers
                 Color = entrada.Color,
                 Precio = entrada.Precio,
                 Stock = entrada.Stock,
-                NombreCategoria = categoria?.NombreCategoria,
-                NombreProveedor = proveedor?.NombreCompleto
+                NombreCategoria = categoria.NombreCategoria
             };
 
             return CreatedAtAction(nameof(GetProducto), new { id = salida.IdProducto }, salida);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProducto(Guid id, [FromBody] Producto producto)
+        public async Task<IActionResult> UpdateProducto(Guid id, [FromBody] AgregarProductoInput producto)
         {
-            if (id != producto.IdProducto)
-                return BadRequest();
-
             var existing = await _contexto.Productos.FindAsync(id);
+
             if (existing == null)
-                return NotFound();
+                return NotFound("Producto no encontrado");
+
+            var categoria = await _contexto.Categorias.FindAsync(producto.IdCategoria);
+
+            if (categoria == null)
+                return BadRequest("La categoría no existe");
 
             existing.NombreProducto = producto.NombreProducto;
             existing.Descripcion = producto.Descripcion;
@@ -93,9 +98,10 @@ namespace TiendaAccesorios.Controllers
             existing.Color = producto.Color;
             existing.Precio = producto.Precio;
             existing.Stock = producto.Stock;
-            existing.Estado = producto.Estado;
+            existing.IdCategoria = producto.IdCategoria;
 
             await _contexto.SaveChangesAsync();
+
             return NoContent();
         }
 
@@ -103,12 +109,15 @@ namespace TiendaAccesorios.Controllers
         public async Task<IActionResult> DeleteProducto(Guid id)
         {
             var producto = await _contexto.Productos.FindAsync(id);
+
             if (producto == null)
-                return NotFound();
+                return NotFound("Producto no encontrado");
 
             _contexto.Productos.Remove(producto);
             await _contexto.SaveChangesAsync();
+
             return NoContent();
         }
+        
     }
 }

@@ -13,6 +13,5 @@ public class AgregarProductoOutput
     public decimal Precio { get; set; }
     public int Stock { get; set; }
 
-    public string? NombreCategoria { get; set; }
-    public string? NombreProveedor { get; set; }
+    public required string NombreCategoria { get; set; }
 }

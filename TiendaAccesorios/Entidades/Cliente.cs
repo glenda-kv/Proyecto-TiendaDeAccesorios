@@ -3,19 +3,16 @@ using System.Text.Json.Serialization;
 
 namespace TiendaAccesorios.Entidades;
 
-public class Usuario
+public class Cliente
 {
-    public Guid IdUsuario { get; set; }
+    public Guid IdCliente { get; set; }
+     public int Ci { get; set; }
+    public string? Extension { get; set; }
     public required string NombreCompleto { get; set; }
-    public required string Correo { get; set; }
-    public required string Contrasenia { get; set; }
     public string? Telefono { get; set; }
-    public required string Rol { get; set; }
     public bool Estado { get; set; }
     public DateTime FechaRegistro { get; set; }
 
     [JsonIgnore]
     public ICollection<Venta>? Ventas { get; set; }
-
 }
-

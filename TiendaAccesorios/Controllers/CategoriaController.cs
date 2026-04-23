@@ -6,9 +6,7 @@ using TiendaAccesorios.Entidades;
 
 namespace TiendaAccesorios.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CategoriaController : ControllerBase
+    public class CategoriaController : BaseApiController
     {
          private readonly AppDbContext _contexto;
 
@@ -55,7 +53,6 @@ namespace TiendaAccesorios.Controllers
                 return NotFound();
 
             existing.NombreCategoria = categoria.NombreCategoria;
-            existing.Descripcion = categoria.Descripcion;
             existing.Estado = categoria.Estado;
 
             await _contexto.SaveChangesAsync();

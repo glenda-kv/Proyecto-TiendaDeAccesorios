@@ -16,15 +16,12 @@ public class Producto
     public DateTime FechaRegistro { get; set; }
 
     public Guid IdCategoria { get; set; }
+
     [JsonIgnore]
     public Categoria? Categoria { get; set; }
 
-    public Guid IdProveedor { get; set; }
     [JsonIgnore]
-    public Proveedor? Proveedor { get; set; }
-
-    [JsonIgnore]
-    public ICollection<DetalleVenta>? DetallesVenta { get; set; }
+    public ICollection<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 
 }
 

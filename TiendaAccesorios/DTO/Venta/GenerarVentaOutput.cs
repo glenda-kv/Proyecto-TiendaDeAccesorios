@@ -6,8 +6,10 @@ public class GenerarVentaOutput
 {
     public Guid IdVenta { get; set; }
     public DateTime FechaVenta { get; set; }
-    public required string ModalidadPago { get; set; }
+    public required string FormaDePago { get; set; }
     public decimal Total { get; set; }
+    public Guid IdCliente { get; set; }
+    public required string NombreCliente { get; set; }
 
     public List<DetalleVentaSalida> Detalles { get; set; } = new();
 }
