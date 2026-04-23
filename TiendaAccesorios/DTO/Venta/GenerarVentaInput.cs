@@ -9,7 +9,7 @@ public class GenerarVentaInput
     public Guid IdCliente { get; set; }
 
     [Required(ErrorMessage = "La forma de pago es obligatoria")]
-    [MinLength(3, ErrorMessage = "La forma de pago es inválida")]
+    [MinLength(2, ErrorMessage = "La forma de pago es inválida")]
     public required string FormaDePago { get; set; }
 
     [Required(ErrorMessage = "Debe ingresar al menos un producto")]
