@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="DTO\Categoria\" />
+    <Folder Include="DTO\Cliente\" />
     <Folder Include="DTO\Producto\AgregarProducto\" />
     <Folder Include="DTO\Venta\" />
     <Folder Include="Entidades\" />
