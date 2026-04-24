@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TiendaAccesorios.Data;
-using TiendaAccesorios.DTO.Venta;
+using TiendaAccesorios.DTO.Venta.GenerarVenta;
 using TiendaAccesorios.Entidades;
 
 namespace TiendaAccesorios.Controllers;

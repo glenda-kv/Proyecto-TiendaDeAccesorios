@@ -1,6 +1,6 @@
 using System;
 
-namespace TiendaAccesorios.DTO.Venta;
+namespace TiendaAccesorios.DTO.Venta.GenerarVenta;
 
 public class GenerarVentaOutput
 {

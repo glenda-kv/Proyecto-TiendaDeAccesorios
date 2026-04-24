@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.OpenApi.MicrosoftExtensions;
 
-namespace TiendaAccesorios.DTO.Cliente;
+namespace TiendaAccesorios.DTO.Cliente.AgregarCliente;
 
 public class AgregarClienteInput
 {

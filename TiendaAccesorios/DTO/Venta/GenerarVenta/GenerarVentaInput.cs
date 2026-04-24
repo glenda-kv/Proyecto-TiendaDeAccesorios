@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TiendaAccesorios.DTO.Venta;
+namespace TiendaAccesorios.DTO.Venta.GenerarVenta;
 
 public class GenerarVentaInput
 {

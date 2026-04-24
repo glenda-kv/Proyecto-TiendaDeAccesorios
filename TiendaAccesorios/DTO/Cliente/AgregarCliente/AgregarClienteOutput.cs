@@ -1,6 +1,6 @@
 using System;
 
-namespace TiendaAccesorios.DTO.Cliente;
+namespace TiendaAccesorios.DTO.Cliente.AgregarCliente;
 
 public class AgregarClienteOutput
 {
