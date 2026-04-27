@@ -17,7 +17,7 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="DTO\Categoria\ActualizarCategoria\" />
-    <Folder Include="DTO\Categoria\EliminarCategoria\" />
+    <Folder Include="DTO\Categoria\CambiarEstadoCategoria\" />
     <Folder Include="DTO\Categoria\ListarCategorias\" />
     <Folder Include="DTO\Categoria\ObtenerCategoria\" />
     <Folder Include="DTO\Cliente\ActualizarCliente\" />

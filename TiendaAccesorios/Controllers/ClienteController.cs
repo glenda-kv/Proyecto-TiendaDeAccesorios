@@ -8,14 +8,32 @@ namespace TiendaAccesorios.Controllers;
 
 public class ClienteController : BaseApiController
 {
-    /* private readonly AppDbContext _contexto;
+    private readonly AppDbContext _contexto;
 
     public ClienteController(AppDbContext contexto)
     {
         _contexto = contexto;
     }
 
-    [HttpGet]
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* [HttpGet]
     public async Task<ActionResult<ICollection<Cliente>>> GetClientes()
     {
         var clientes = await _contexto.Clientes.ToListAsync();
