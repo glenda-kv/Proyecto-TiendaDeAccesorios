@@ -9,7 +9,7 @@ namespace TiendaAccesorios.Controllers;
 
 public class VentaController : BaseApiController
 {
-    private readonly AppDbContext _context;
+    /* private readonly AppDbContext _context;
 
     public VentaController(AppDbContext context)
     {
@@ -95,5 +95,5 @@ public class VentaController : BaseApiController
         };
 
         return CreatedAtAction(nameof(GenerarVenta), new { id = venta.IdVenta }, salida);
-    }
+    } */
 }

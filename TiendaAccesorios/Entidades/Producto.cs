@@ -12,9 +12,10 @@ public class Producto
     public required string Color { get; set; }
     public decimal Precio { get; set; }
     public int Stock { get; set; }
-    public bool Estado { get; set; }
+    public bool EstaActivo { get; set; }
     public DateTime FechaRegistro { get; set; }
-
+    public DateTime? FechaActualizacion { get; set; }
+    public DateTime? FechaUltimoIngresoStock { get; set; }
     public Guid IdCategoria { get; set; }
 
     [JsonIgnore]

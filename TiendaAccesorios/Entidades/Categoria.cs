@@ -7,7 +7,8 @@ public class Categoria
 {
     public Guid IdCategoria { get; set; }
     public required string NombreCategoria { get; set; }
-    public bool Estado { get; set; }
+    public string? Descripcion {get; set;}
+    public bool EstaActivo { get; set; }
 
     [JsonIgnore]
     public ICollection<Producto>? Productos { get; set; }

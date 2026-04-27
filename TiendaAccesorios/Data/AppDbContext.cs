@@ -18,7 +18,8 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // Tabla Cliente
+        // TABLA CLIENTE
+
         modelBuilder.Entity<Cliente>()
             .ToTable("Cliente");
 
@@ -26,18 +27,35 @@ public class AppDbContext : DbContext
             .HasKey(x => x.IdCliente);
 
         modelBuilder.Entity<Cliente>()
-            .Property(x => x.NombreCompleto)
-            .HasMaxLength(100);
+            .Property(x => x.Ci);
 
         modelBuilder.Entity<Cliente>()
-            .Property(x => x.Extension)
-            .HasMaxLength(2);
+            .Property(x => x.Complemento)
+            .HasMaxLength(5);
+
+        modelBuilder.Entity<Cliente>()
+            .Property(x => x.NombreCompleto)
+            .HasMaxLength(100);
 
         modelBuilder.Entity<Cliente>()
             .Property(x => x.Telefono)
             .HasMaxLength(20);
 
-        // Tabla Categoria
+        modelBuilder.Entity<Cliente>()
+            .Property(x => x.Correo)
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Cliente>()
+            .Property(x => x.EstaActivo)
+            .HasDefaultValue(true);
+
+        modelBuilder.Entity<Cliente>()
+            .Property(x => x.FechaRegistro);
+
+        modelBuilder.Entity<Cliente>()
+            .Property(x => x.FechaActualizacion);
+
+        // TABLA CATEGORIA
         modelBuilder.Entity<Categoria>()
             .ToTable("Categoria");
 
@@ -48,7 +66,15 @@ public class AppDbContext : DbContext
             .Property(x => x.NombreCategoria)
             .HasMaxLength(100);
 
-        // Tabla Producto
+        modelBuilder.Entity<Categoria>()
+            .Property(x => x.Descripcion)
+            .HasMaxLength(250);
+
+        modelBuilder.Entity<Categoria>()
+            .Property(x => x.EstaActivo)
+            .HasDefaultValue(true);
+
+        // TABLA PRODUCTO
         modelBuilder.Entity<Producto>()
             .ToTable("Producto");
 
@@ -61,7 +87,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Producto>()
             .Property(x => x.Descripcion)
-            .HasMaxLength(200);
+            .HasMaxLength(250);
 
         modelBuilder.Entity<Producto>()
             .Property(x => x.Marca)
@@ -76,11 +102,28 @@ public class AppDbContext : DbContext
             .HasColumnType("decimal(10,2)");
 
         modelBuilder.Entity<Producto>()
+            .Property(x => x.Stock)
+            .HasDefaultValue(0);
+
+        modelBuilder.Entity<Producto>()
+            .Property(x => x.EstaActivo)
+            .HasDefaultValue(true);
+
+        modelBuilder.Entity<Producto>()
+            .Property(x => x.FechaRegistro);
+
+        modelBuilder.Entity<Producto>()
+            .Property(x => x.FechaActualizacion);
+
+        modelBuilder.Entity<Producto>()
+            .Property(x => x.FechaUltimoIngresoStock);
+
+        modelBuilder.Entity<Producto>()
             .HasOne(x => x.Categoria)
             .WithMany(x => x.Productos)
             .HasForeignKey(x => x.IdCategoria);
 
-        // Tabla Venta
+        // TABLA VENTA
         modelBuilder.Entity<Venta>()
             .ToTable("Venta");
 
@@ -88,7 +131,10 @@ public class AppDbContext : DbContext
             .HasKey(x => x.IdVenta);
 
         modelBuilder.Entity<Venta>()
-            .Property(x => x.FormaDePago)
+            .Property(x => x.FechaVenta);
+
+        modelBuilder.Entity<Venta>()
+            .Property(x => x.MetodoPago)
             .HasMaxLength(30);
 
         modelBuilder.Entity<Venta>()
@@ -96,16 +142,27 @@ public class AppDbContext : DbContext
             .HasColumnType("decimal(10,2)");
 
         modelBuilder.Entity<Venta>()
+            .Property(x => x.EstadoVenta)
+            .HasMaxLength(30);
+
+        modelBuilder.Entity<Venta>()
+            .Property(x => x.Observacion)
+            .HasMaxLength(250);
+
+        modelBuilder.Entity<Venta>()
             .HasOne(x => x.Cliente)
             .WithMany(x => x.Ventas)
             .HasForeignKey(x => x.IdCliente);
 
-        // Tabla DetalleVenta
+        // TABLA DETALLE VENTA
         modelBuilder.Entity<DetalleVenta>()
             .ToTable("DetalleVenta");
 
         modelBuilder.Entity<DetalleVenta>()
             .HasKey(x => x.IdDetalleVenta);
+
+        modelBuilder.Entity<DetalleVenta>()
+            .Property(x => x.Cantidad);
 
         modelBuilder.Entity<DetalleVenta>()
             .Property(x => x.PrecioUnitario)

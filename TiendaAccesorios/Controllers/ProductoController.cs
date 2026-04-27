@@ -9,7 +9,7 @@ namespace TiendaAccesorios.Controllers
 {
     public class ProductoController : BaseApiController
     {
-        private readonly AppDbContext _contexto;
+       /*  private readonly AppDbContext _contexto;
 
         public ProductoController(AppDbContext contexto)
         {
@@ -117,7 +117,7 @@ namespace TiendaAccesorios.Controllers
             await _contexto.SaveChangesAsync();
 
             return NoContent();
-        }
+        } */
         
     }
 }

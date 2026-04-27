@@ -8,7 +8,7 @@ namespace TiendaAccesorios.Controllers
 {
     public class CategoriaController : BaseApiController
     {
-         private readonly AppDbContext _contexto;
+         /* private readonly AppDbContext _contexto;
 
         public CategoriaController(AppDbContext contexto)
         {
@@ -69,6 +69,6 @@ namespace TiendaAccesorios.Controllers
             _contexto.Categorias.Remove(categoria);
             await _contexto.SaveChangesAsync();
             return NoContent();
-        }
+        } */
     }
 }
