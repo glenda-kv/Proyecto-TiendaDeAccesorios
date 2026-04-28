@@ -21,7 +21,9 @@
     <Folder Include="DTO\Categoria\ListarCategorias\" />
     <Folder Include="DTO\Categoria\ObtenerCategoria\" />
     <Folder Include="DTO\Cliente\ActualizarCliente\" />
-    <Folder Include="DTO\Cliente\EliminarCliente\" />
+    <Folder Include="DTO\Cliente\BuscarClientePorNombre\" />
+    <Folder Include="DTO\Cliente\CambiarEstadoCliente\" />
+    <Folder Include="DTO\Cliente\HistorialComprasCliente\" />
     <Folder Include="DTO\Cliente\ListarClientes\" />
     <Folder Include="DTO\Cliente\ObtenerCliente\" />
     <Folder Include="DTO\Producto\ActualizarProducto\" />

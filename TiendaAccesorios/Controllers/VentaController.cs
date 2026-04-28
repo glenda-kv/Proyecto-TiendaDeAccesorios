@@ -9,14 +9,14 @@ namespace TiendaAccesorios.Controllers;
 
 public class VentaController : BaseApiController
 {
-    /* private readonly AppDbContext _context;
+    private readonly AppDbContext _contexto;
 
-    public VentaController(AppDbContext context)
+    public VentaController(AppDbContext contexto)
     {
-        _context = context;
+        _contexto = contexto;
     }
 
-    [HttpPost]
+    /* [HttpPost]
     public async Task<ActionResult<GenerarVentaOutput>> GenerarVenta([FromBody] GenerarVentaInput entrada)
     {
         decimal total = 0;
@@ -95,5 +95,5 @@ public class VentaController : BaseApiController
         };
 
         return CreatedAtAction(nameof(GenerarVenta), new { id = venta.IdVenta }, salida);
-    } */
+    }  */
 }

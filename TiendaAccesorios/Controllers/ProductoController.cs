@@ -9,115 +9,79 @@ namespace TiendaAccesorios.Controllers
 {
     public class ProductoController : BaseApiController
     {
-       /*  private readonly AppDbContext _contexto;
+        private readonly AppDbContext _contexto;
 
         public ProductoController(AppDbContext contexto)
         {
             _contexto = contexto;
         }
-         [HttpGet]
+        
+    
+        // GET: api/productos
+        [HttpGet]
         public async Task<ActionResult<ICollection<Producto>>> GetProductos()
         {
             var productos = await _contexto.Productos
-                .Include(x => x.Categoria)
+                .AsNoTracking()
+                .Where(x => x.EstaActivo)
                 .ToListAsync();
 
             return Ok(productos);
         }
 
-        [HttpGet("{id}")]
+        // GET: api/productos/{id}
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<Producto>> GetProducto(Guid id)
         {
             var producto = await _contexto.Productos
-                .Include(x => x.Categoria)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.IdProducto == id);
 
-            if (producto == null)
-                return NotFound("Producto no encontrado");
+            if (producto is null)
+                return NotFound($"No se encontró el producto con ID {id}.");
 
             return Ok(producto);
         }
 
+        // POST: api/productos
         [HttpPost]
-        public async Task<ActionResult<AgregarProductoOutput>> CreateProducto([FromBody] AgregarProductoInput producto)
+        public async Task<ActionResult<Producto>> PostProducto(Producto producto)
         {
-            var categoria = await _contexto.Categorias.FindAsync(producto.IdCategoria);
+            producto.IdProducto   = Guid.NewGuid();
+            producto.EstaActivo   = true;
+            producto.FechaRegistro = DateTime.UtcNow;
+            producto.FechaActualizacion = null;
+            producto.FechaUltimoIngresoStock = null;
 
-            if (categoria == null)
-                return BadRequest("La categoría no existe");
-
-            var entrada = new Producto
-            {
-                NombreProducto = producto.NombreProducto,
-                Descripcion = producto.Descripcion,
-                Marca = producto.Marca,
-                Color = producto.Color,
-                Precio = producto.Precio,
-                Stock = producto.Stock,
-                IdCategoria = producto.IdCategoria
-            };
-
-            entrada.IdProducto = Guid.NewGuid();
-            entrada.FechaRegistro = DateTime.UtcNow;
-            entrada.Estado = true;
-
-            _contexto.Productos.Add(entrada);
+            _contexto.Productos.Add(producto);
             await _contexto.SaveChangesAsync();
 
-            var salida = new AgregarProductoOutput
-            {
-                IdProducto = entrada.IdProducto,
-                NombreProducto = entrada.NombreProducto,
-                Descripcion = entrada.Descripcion,
-                Marca = entrada.Marca,
-                Color = entrada.Color,
-                Precio = entrada.Precio,
-                Stock = entrada.Stock,
-                NombreCategoria = categoria.NombreCategoria
-            };
-
-            return CreatedAtAction(nameof(GetProducto), new { id = salida.IdProducto }, salida);
+            return CreatedAtAction(nameof(GetProducto), new { id = producto.IdProducto }, producto);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProducto(Guid id, [FromBody] AgregarProductoInput producto)
-        {
-            var existing = await _contexto.Productos.FindAsync(id);
-
-            if (existing == null)
-                return NotFound("Producto no encontrado");
-
-            var categoria = await _contexto.Categorias.FindAsync(producto.IdCategoria);
-
-            if (categoria == null)
-                return BadRequest("La categoría no existe");
-
-            existing.NombreProducto = producto.NombreProducto;
-            existing.Descripcion = producto.Descripcion;
-            existing.Marca = producto.Marca;
-            existing.Color = producto.Color;
-            existing.Precio = producto.Precio;
-            existing.Stock = producto.Stock;
-            existing.IdCategoria = producto.IdCategoria;
-
-            await _contexto.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProducto(Guid id)
+        // PUT: api/productos/{id}
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<Producto>> PutProducto(Guid id, Producto input)
         {
             var producto = await _contexto.Productos.FindAsync(id);
 
-            if (producto == null)
-                return NotFound("Producto no encontrado");
+            if (producto is null)
+                return NotFound($"No se encontró el producto con ID {id}.");
 
-            _contexto.Productos.Remove(producto);
+            producto.NombreProducto    = input.NombreProducto;
+            producto.Descripcion       = input.Descripcion;
+            producto.Marca             = input.Marca;
+            producto.Color             = input.Color;
+            producto.Precio            = input.Precio;
+            producto.IdCategoria       = input.IdCategoria;
+            producto.FechaActualizacion = DateTime.UtcNow;
+
             await _contexto.SaveChangesAsync();
 
-            return NoContent();
-        } */
+            return Ok(producto);
+        }
+
+
         
     }
 }
