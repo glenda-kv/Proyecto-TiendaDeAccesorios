@@ -15,6 +15,5 @@ public class Cliente
     public DateTime FechaRegistro { get; set; }
     public DateTime? FechaActualizacion { get; set; }
 
-    [JsonIgnore]
     public ICollection<Venta>? Ventas { get; set; }
 }

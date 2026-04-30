@@ -18,10 +18,8 @@ public class Producto
     public DateTime? FechaUltimoIngresoStock { get; set; }
     public Guid IdCategoria { get; set; }
 
-    [JsonIgnore]
     public Categoria? Categoria { get; set; }
 
-    [JsonIgnore]
     public ICollection<DetalleVenta> DetallesVenta { get; set; } = new List<DetalleVenta>();
 
 }

@@ -10,6 +10,5 @@ public class Categoria
     public string? Descripcion {get; set;}
     public bool EstaActivo { get; set; }
 
-    [JsonIgnore]
     public ICollection<Producto>? Productos { get; set; }
 }
