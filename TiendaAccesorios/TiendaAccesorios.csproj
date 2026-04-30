@@ -27,7 +27,6 @@
     <Folder Include="DTO\Cliente\ObtenerCliente\" />
     <Folder Include="DTO\Producto\ActualizarProducto\" />
     <Folder Include="DTO\Producto\AgregarProducto\" />
-    <Folder Include="DTO\Producto\EliminarProducto\" />
     <Folder Include="DTO\Producto\ListarProductos\" />
     <Folder Include="DTO\Producto\ObtenerProducto\" />
     <Folder Include="DTO\Venta\ListarVentas\" />
