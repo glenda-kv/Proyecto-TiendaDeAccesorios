@@ -8,6 +8,7 @@ public class AgregarProductoInput
 {
     [Required(ErrorMessage = "El nombre del producto es obligatorio")]
     public required string NombreProducto { get; set; }
+
     public string? Descripcion { get; set; }
 
     [Required(ErrorMessage = "La marca es obligatoria")]
@@ -21,7 +22,7 @@ public class AgregarProductoInput
     public decimal Precio { get; set; }
 
     [Required(ErrorMessage = "El stock es obligatorio")]
-    [Range(0, int.MaxValue, ErrorMessage = "El stock debe ser un número entero no negativo")]
+    [Range(0, int.MaxValue, ErrorMessage = "El stock debe ser mayor o igual a cero")]
     public int Stock { get; set; }
 
     [Required(ErrorMessage = "El ID de la categoría es obligatorio")]
