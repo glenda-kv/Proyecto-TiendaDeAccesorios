@@ -19,4 +19,6 @@ public class ActualizarProductoOutput
     public int Stock { get; set; }
 
     public required string NombreCategoria { get; set; }
+
+    public required string NombreCategoria { get; set; }
 }
