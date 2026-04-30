@@ -20,5 +20,4 @@ public class ActualizarProductoOutput
 
     public required string NombreCategoria { get; set; }
 
-    public required string NombreCategoria { get; set; }
 }
