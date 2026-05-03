@@ -10,5 +10,5 @@ public class ListarProductosOutput
     public required string Color { get; set; }
     public decimal Precio { get; set; }
     public int Stock { get; set; }
-    public required string NombreCategoria { get; set; }
+    public string Categoria { get; set; } = string.Empty;
 }

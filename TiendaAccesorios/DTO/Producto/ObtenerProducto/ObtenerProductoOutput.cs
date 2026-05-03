@@ -11,5 +11,9 @@ public class ObtenerProductoOutput
     public required string Color { get; set; }
     public decimal Precio { get; set; }
     public int Stock { get; set; }
-    public required string NombreCategoria { get; set; }
+    public bool EstaActivo { get; set; }
+    public string Categoria { get; set; } = string.Empty;
+    public DateTime FechaRegistro { get; set; }
+    public DateTime? FechaActualizacion { get; set; }
+    public DateTime? FechaUltimoIngresoStock { get; set; }
 }

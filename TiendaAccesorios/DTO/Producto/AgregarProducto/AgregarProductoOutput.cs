@@ -12,5 +12,6 @@ public class AgregarProductoOutput
     public required string Color { get; set; }
     public decimal Precio { get; set; }
     public int Stock { get; set; }
-    public required string NombreCategoria { get; set; }
+    public required string Categoria { get; set; }
+    public DateTime FechaRegistro { get; set; }
 }
