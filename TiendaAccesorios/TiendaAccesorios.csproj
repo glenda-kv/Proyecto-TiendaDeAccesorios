@@ -29,13 +29,19 @@
     <Folder Include="DTO\Cliente\ObtenerCliente\" />
     <Folder Include="DTO\Producto\ActualizarPrecioProducto\" />
     <Folder Include="DTO\Producto\ActualizarProducto\" />
+    <Folder Include="DTO\Producto\AdministrarProductos\" />
     <Folder Include="DTO\Producto\AgregarProducto\" />
+    <Folder Include="DTO\Producto\BuscarProductos\" />
     <Folder Include="DTO\Producto\CambiarEstadoProducto\" />
     <Folder Include="DTO\Producto\IngresoStockProducto\" />
     <Folder Include="DTO\Producto\ListarProductos\" />
     <Folder Include="DTO\Producto\ObtenerProducto\" />
+    <Folder Include="DTO\Producto\StockBajoProductos\" />
+    <Folder Include="DTO\Venta\ActualizarObservacionVenta\" />
+    <Folder Include="DTO\Venta\CambiarEstadoVenta\" />
     <Folder Include="DTO\Venta\ListarVentas\" />
     <Folder Include="DTO\Venta\ObtenerVenta\" />
+    <Folder Include="DTO\Venta\ResumenVentas\" />
     <Folder Include="Entidades\" />
     <Folder Include="Mappers\" />
   </ItemGroup>
