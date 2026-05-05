@@ -1,0 +1,35 @@
+0000000000000000000000000000000000000000 07e4c1c4efec95e0de85eb40ae46b1f6b31ee3ee glenda-kv <karolvediag@gmail.com> 1776262360 -0400	commit (initial): Primer Avance, Proyecto EF y Primera Migracion
+07e4c1c4efec95e0de85eb40ae46b1f6b31ee3ee 36fbdb109c1c3840cd859675499af5a50f145e90 glenda-kv <karolvediag@gmail.com> 1776431670 -0400	commit: Creacion de Controllers
+36fbdb109c1c3840cd859675499af5a50f145e90 f3d980cebe98a4e76a490b69ea1535ac3a2bda7a glenda-kv <karolvediag@gmail.com> 1776431979 -0400	commit: Eliminacion de documento innecesario
+f3d980cebe98a4e76a490b69ea1535ac3a2bda7a 8cffda5328766cad28d53a6f62751859546082b4 glenda-kv <karolvediag@gmail.com> 1776448549 -0400	commit: Correccion de errores en entidades(Pago y Venta) y nueva migracion
+8cffda5328766cad28d53a6f62751859546082b4 f32e3fe6dccd73411d564daefedc0538b814dfa9 glenda-kv <karolvediag@gmail.com> 1776708301 -0400	commit: Creacion de DTO para AgregarProducto y modificaciones en el Post del Controller/Producto
+f32e3fe6dccd73411d564daefedc0538b814dfa9 494d79e077c7558f55851990d86752f949a206f6 glenda-kv <karolvediag@gmail.com> 1776794383 -0400	pull: Fast-forward
+494d79e077c7558f55851990d86752f949a206f6 7e85e7972eed33a4ff556ed93d525d35540e7351 glenda-kv <karolvediag@gmail.com> 1776870819 -0400	pull: Fast-forward
+7e85e7972eed33a4ff556ed93d525d35540e7351 7fa78d56ed8373ae66c4f418b0a21ea7249088e2 glenda-kv <karolvediag@gmail.com> 1776871747 -0400	pull: Fast-forward
+7fa78d56ed8373ae66c4f418b0a21ea7249088e2 4491d3adcbed5f5719407ca6b1526145689b12d3 glenda-kv <karolvediag@gmail.com> 1776873018 -0400	pull: Fast-forward
+4491d3adcbed5f5719407ca6b1526145689b12d3 5ef1c42152d2928d82c71d726fbb5708751728e9 glenda-kv <karolvediag@gmail.com> 1776873071 -0400	pull: Fast-forward
+5ef1c42152d2928d82c71d726fbb5708751728e9 9f743170b59e7f23346a63dde7251fb97f82d59e glenda-kv <karolvediag@gmail.com> 1776875402 -0400	commit: Ingreso de datos
+9f743170b59e7f23346a63dde7251fb97f82d59e 69cfb1317c10160f7ae880e574ea0d42d128bf84 glenda-kv <karolvediag@gmail.com> 1776875569 -0400	reset: moving to origin/master
+69cfb1317c10160f7ae880e574ea0d42d128bf84 1332e15674d4af06bd2eb20ef28ad73b2bbf27a6 glenda-kv <karolvediag@gmail.com> 1776876678 -0400	commit: Modificaciones en el Post de VentaController
+1332e15674d4af06bd2eb20ef28ad73b2bbf27a6 c7d72ce2ce153f4e0e0d2f7f24d718406069bfc2 glenda-kv <karolvediag@gmail.com> 1776880592 -0400	commit: Correciones en ProductoController
+c7d72ce2ce153f4e0e0d2f7f24d718406069bfc2 55f2f0a56f3edbc50d322d243c15d7aa9efec397 glenda-kv <karolvediag@gmail.com> 1776909562 -0400	commit: Aplicando gitignore correctamente
+55f2f0a56f3edbc50d322d243c15d7aa9efec397 43b33f25ae66796a399f24fe4bbb9318c5d0bd40 glenda-kv <karolvediag@gmail.com> 1776921762 -0400	commit: Correcion en VentaController y Dtos
+43b33f25ae66796a399f24fe4bbb9318c5d0bd40 578e4c2a4d2d9427d0748989f8cd6cb6bd93f86c glenda-kv <karolvediag@gmail.com> 1776922608 -0400	commit: Nueva implementacion del gitignore
+578e4c2a4d2d9427d0748989f8cd6cb6bd93f86c 96a6a3a712ca76150aad097d10ff4443f6af284d glenda-kv <karolvediag@gmail.com> 1776956735 -0400	commit: Correccion en DTO/GenerarVentaInput
+96a6a3a712ca76150aad097d10ff4443f6af284d 194017b8f8f2359b5342ff7af942d194ccdc6304 glenda-kv <karolvediag@gmail.com> 1777002034 -0400	pull: Fast-forward
+194017b8f8f2359b5342ff7af942d194ccdc6304 a272c73866cc6a445591e9facece2e1e1d1ae64f glenda-kv <karolvediag@gmail.com> 1777005306 -0400	commit: Modificacion en Carpeta DTO de Venta, Producto, Categoria y Cliente
+a272c73866cc6a445591e9facece2e1e1d1ae64f 9ec94684a9302bd4b03df8d3eb721cc08f487b00 glenda-kv <karolvediag@gmail.com> 1777006447 -0400	commit: Modificacion en en DTOs de Agregar en Venta, Categoria y Cliente
+9ec94684a9302bd4b03df8d3eb721cc08f487b00 713c8b8ed8f1b8c924642a2f7cc6dfc757419953 glenda-kv <karolvediag@gmail.com> 1777245280 -0400	commit: Modificacion en todas la entidades, se agrego y renombro propiedades
+713c8b8ed8f1b8c924642a2f7cc6dfc757419953 0bfc536fbbb707faecd285bde8c196c4d042a5e1 glenda-kv <karolvediag@gmail.com> 1777245456 -0400	pull --rebase origin master (finish): refs/heads/master onto 1c6486e0be5654d898e4ac69f045855f47ecdddb
+0bfc536fbbb707faecd285bde8c196c4d042a5e1 7a19451ec523dd026cbcc0ae61b93d707da87bde glenda-kv <karolvediag@gmail.com> 1777252221 -0400	commit: Correcta modificacion y migracion, para todas las entidades, se añadio y se renombro propiedades
+7a19451ec523dd026cbcc0ae61b93d707da87bde 4495bc9357037e802df42c2f29f5ddcb04e888c4 glenda-kv <karolvediag@gmail.com> 1777267460 -0400	commit: Modificacion en DTOs y Controller de la Entidad Categoria
+4495bc9357037e802df42c2f29f5ddcb04e888c4 731c4f53a954537e0fe7d4d06a4b80b762342a99 glenda-kv <karolvediag@gmail.com> 1777347852 -0400	commit: Se modifico y creo todos los dtos de Cliente, ademas de modificar en ClienteController
+731c4f53a954537e0fe7d4d06a4b80b762342a99 99316da96ea3f10e7a463df3ed7239a727ef308f glenda-kv <karolvediag@gmail.com> 1777350693 -0400	commit: Se elimino un paquete nugget innecesario
+99316da96ea3f10e7a463df3ed7239a727ef308f ea3d0cb22fa471f280c7fbb247cb13129652ff08 glenda-kv <karolvediag@gmail.com> 1777568078 -0400	commit: Se elimino los dtos de EliminarProducto
+ea3d0cb22fa471f280c7fbb247cb13129652ff08 60ac518e7450677bd690c0c061bd5db614c67a25 glenda-kv <karolvediag@gmail.com> 1777568428 -0400	pull: Fast-forward
+60ac518e7450677bd690c0c061bd5db614c67a25 e5f7fdc482cae70c2adff3d7851d80657546cd6f glenda-kv <karolvediag@gmail.com> 1777569190 -0400	pull: Fast-forward
+e5f7fdc482cae70c2adff3d7851d80657546cd6f 9bf3b9b2e0ed9f61cecf4da4c5120cd5f0204908 glenda-kv <karolvediag@gmail.com> 1777570117 -0400	pull: Fast-forward
+9bf3b9b2e0ed9f61cecf4da4c5120cd5f0204908 8cfe1393d0de04551116147da5c8258c265ad79e glenda-kv <karolvediag@gmail.com> 1777570627 -0400	pull: Fast-forward
+8cfe1393d0de04551116147da5c8258c265ad79e c577a725e65821a2ee08c0c2418f3d247d2e6631 glenda-kv <karolvediag@gmail.com> 1777571239 -0400	commit: Se elimino los [Jsonignore] de todas las entidades
+c577a725e65821a2ee08c0c2418f3d247d2e6631 ea46d13da35fadef8c23fb1dd23da73b5b1f7e7b glenda-kv <karolvediag@gmail.com> 1777794283 -0400	commit: Se implemento AutoMapper, ademas de crear DTOs y agregar endpoints para ProductoController
+ea46d13da35fadef8c23fb1dd23da73b5b1f7e7b ea1c1a408e35c41e65f8faf1f3e3f67c66f991c3 glenda-kv <karolvediag@gmail.com> 1777856883 -0400	commit: Se añadio nuevos endpoints a VentaController, como tambien nuevos DTOs
