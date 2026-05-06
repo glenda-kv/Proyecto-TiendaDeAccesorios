@@ -168,7 +168,7 @@ public class VentaController : BaseApiController
         return Ok(salida);
     }
 
-    [HttpGet("cliente")]
+    [HttpGet("listas-venta-por-cliente")]
     [ActionName("ListarVentasPorCliente")]
     public async Task<ActionResult<ICollection<ObtenerVentaOutput>>> ListarVentasPorCliente(
         [FromQuery] int? ci,
@@ -190,7 +190,7 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("estado")]
+    [HttpGet("listar-ventas-por-estado")]
     [ActionName("ListarVentasPorEstado")]
     public async Task<ActionResult<ICollection<ObtenerVentaOutput>>> ListarVentasPorEstado(
         [FromQuery] string estado)
@@ -207,7 +207,7 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("fecha")]
+    [HttpGet("listar-ventas-por-fecha")]
     [ActionName("ListarVentasPorFecha")]
     public async Task<ActionResult<ICollection<ObtenerVentaOutput>>> ListarVentasPorFecha(
         [FromQuery] DateTime desde,
@@ -229,7 +229,7 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("metodo-pago")]
+    [HttpGet("listar-ventas-por-metodo-pago")]
     [ActionName("ListarVentasPorMetodoPago")]
     public async Task<ActionResult<ICollection<ListarVentasOutput>>> ListarVentasPorMetodoPago(
         [FromQuery] string metodoPago)
@@ -246,7 +246,7 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("resumen")]
+    [HttpGet("resumen-ventas-por-fecha")]
     [ActionName("ResumenVentas")]
     public async Task<ActionResult<ResumenVentasOutput>> ResumenVentas(
         [FromQuery] DateTime desde,

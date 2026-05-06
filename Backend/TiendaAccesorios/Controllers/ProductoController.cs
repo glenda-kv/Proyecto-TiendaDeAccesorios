@@ -30,7 +30,7 @@ namespace TiendaAccesorios.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("ListarTodosProductos")]
         public async Task<ActionResult<ICollection<ListarProductosOutput>>> GetProductos()
         {
             var productos = await _contexto.Productos
@@ -156,7 +156,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(salida);
         }
 
-        [HttpGet("buscar")]
+        [HttpGet("buscar-productos")]
         [ActionName("BuscarProductos")]
         public async Task<ActionResult<ICollection<BuscarProductosOutput>>> BuscarProductos([FromQuery] string buscarProducto)
         {
@@ -174,7 +174,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(productos);
         }
 
-        [HttpGet("categoria")]
+        [HttpGet("productos-por-categoria")]
         [ActionName("ListarProductosPorCategoria")]
         public async Task<ActionResult<ICollection<BuscarProductosOutput>>> ListarProductosPorCategoria([FromQuery] string nombre)
         {
@@ -213,7 +213,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(productos);
         }
 
-        [HttpGet("administrar")]
+        [HttpGet("administrar-productos")]
         [ActionName("AdministrarProductos")]
         public async Task<ActionResult<ICollection<AdministrarProductosOutput>>> AdministrarProductos()
         {
@@ -227,11 +227,7 @@ namespace TiendaAccesorios.Controllers
 
             return Ok(productos);
         }
-
-        
-
-
-        
+  
 
     }
 }

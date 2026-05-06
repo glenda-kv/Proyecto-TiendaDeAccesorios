@@ -24,7 +24,7 @@ public class ClienteController : BaseApiController
         _contexto = contexto;
     }
 
-    [HttpGet]
+    [HttpGet("ListarTodosClientes")]
     public async Task<ActionResult<ICollection<ListarClientesOutput>>> GetClientes()
     {
         var clientes = await _contexto.Clientes

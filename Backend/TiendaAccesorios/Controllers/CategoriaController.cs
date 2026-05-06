@@ -20,7 +20,7 @@ namespace TiendaAccesorios.Controllers
             _contexto = contexto;
         }
 
-        [HttpGet]
+        [HttpGet("ListarTodos")]
         public async Task<ActionResult<ICollection<ListarCategoriasOutput>>> GetCategorias()
         {
             var categorias = await _contexto.Categorias
@@ -88,7 +88,6 @@ namespace TiendaAccesorios.Controllers
             return CreatedAtAction(nameof(GetCategoria), new { id = salida.IdCategoria }, salida);
         }
 
-        // PUT: api/categorias/{id}
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<ActualizarCategoriaOutput>> UpdateCategoria(Guid id, [FromBody] ActualizarCategoriaInput entrada)
         {
@@ -119,7 +118,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(salida);
         }
 
-        // PATCH: api/categorias/{id}/estado
+        
         [HttpPatch("{id:guid}/estado")]
         public async Task<ActionResult<CambiarEstadoCategoriaOutput>> PatchEstadoCategoria(Guid id, [FromBody] CambiarEstadoCategoriaInput entrada)
         {
