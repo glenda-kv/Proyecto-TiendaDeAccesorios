@@ -1,8 +1,8 @@
-
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using TiendaAccesorios.Data;
 using TiendaAccesorios.Mappers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,11 +16,22 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 
+// AQUI AGREGAS CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendReact", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
@@ -32,6 +43,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// AQUI ACTIVAS CORS
+app.UseCors("FrontendReact");
 
 app.UseAuthorization();
 
