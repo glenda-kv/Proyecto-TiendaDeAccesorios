@@ -5,4 +5,9 @@ export const obtenerProductos = async () => {
   return response.data;
 };
 
+export const crearProducto = async (producto: any) => {
+  const response = await api.post("/Producto", producto);
+  return response.data;
+};
+
 // tienes las funciones especificas de productos.
