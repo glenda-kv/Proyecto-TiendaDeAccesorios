@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { obtenerProductos } from "./services/productoService";
+import { Layout } from "./layout/Layout";
 import "./App.css";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
   }, []);
 
   return (
-    <div className="container mt-4">
+    <Layout>
       <h1>Lista de Productos</h1>
 
       <table className="table table-bordered table-striped mt-3">
@@ -38,7 +39,7 @@ function App() {
           ))}
         </tbody>
       </table>
-    </div>
+    </Layout>
   );
 }
 
