@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { obtenerProductos } from "./services/productoService";
 import { Layout } from "./layout/Layout";
+import { ListaProductos } from "./components/Productos/ListaProductos";
 import "./App.css";
 
 function App() {
@@ -16,29 +17,7 @@ function App() {
     <Layout>
       <h1>Lista de Productos</h1>
 
-      <table className="table table-bordered table-striped mt-3">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Marca</th>
-            <th>Color</th>
-            <th>Precio</th>
-            <th>Stock</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {productos.map((producto) => (
-            <tr key={producto.idProducto}>
-              <td>{producto.nombreProducto}</td>
-              <td>{producto.marca}</td>
-              <td>{producto.color}</td>
-              <td>{producto.precio}</td>
-              <td>{producto.stock}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <ListaProductos productos={productos} />
     </Layout>
   );
 }
