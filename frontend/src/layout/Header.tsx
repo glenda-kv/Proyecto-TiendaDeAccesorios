@@ -1,9 +1,15 @@
 export function Header() {
   return (
-    <nav className="navbar navbar-dark bg-dark px-4">
-      <span className="navbar-brand mb-0 h1">
-        Tienda de Accesorios
-      </span>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+      <div className="container">
+        <span className="navbar-brand fw-bold fs-4">
+          Tienda de Accesorios
+        </span>
+
+        <span className="text-white">
+          Sistema de Gestión
+        </span>
+      </div>
     </nav>
   );
 }
