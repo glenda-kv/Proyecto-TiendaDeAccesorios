@@ -139,7 +139,7 @@ namespace TiendaAccesorios.Controllers
         }
 
         [HttpPatch("{id:guid}/ingresar-stock")]
-        public async Task<ActionResult<IngresoStockProductoOutput>> AgregarStock(Guid id, [FromBody] IngresoStockProductoInput entrada)
+        public async Task<ActionResult<IngresoStockProductoOutput>> AgregarStockProducto(Guid id, [FromBody] IngresoStockProductoInput entrada)
         {
             var producto = await _contexto.Productos
                 .FirstOrDefaultAsync(p => p.IdProducto == id);
