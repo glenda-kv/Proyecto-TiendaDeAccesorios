@@ -8,13 +8,13 @@ export function ListaProductos({ productos }: Props) {
   return (
     <div className="card shadow-sm border-0">
       <div className="card-body">
-        <h3 className="mb-4 text-primary fw-bold">
+        <h3 className="mb-4 text-dark fw-bold"> 
           Lista de Productos
         </h3>
 
         <div className="table-responsive">
           <table className="table table-hover align-middle">
-            <thead className="table-primary">
+            <thead className="table-dark"> 
               <tr>
                 <th>Nombre</th>
                 <th>Marca</th>

@@ -14,7 +14,7 @@ export function FormularioProducto({
       onSubmit={guardarProducto}
       className="card shadow-sm border-0 p-4 mb-4"
     >
-      <h3 className="mb-4 text-primary fw-bold">
+      <h3 className="mb-4 text-dark fw-bold">  
         Agregar Producto
       </h3>
 
@@ -129,7 +129,7 @@ export function FormularioProducto({
         </select>
       </div>
 
-      <button className="btn btn-primary w-100 fw-semibold" type="submit">
+      <button className="btn btn-dark w-100 fw-semibold" type="submit">   
         Guardar Producto
       </button>
     </form>

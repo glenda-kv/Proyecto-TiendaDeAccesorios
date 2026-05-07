@@ -92,7 +92,7 @@ function App() {
   return (
     <Layout>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1 className="fw-bold text-primary">
+        <h1 className="fw-bold text-dark">
           Gestión de Productos
         </h1>
       </div>
