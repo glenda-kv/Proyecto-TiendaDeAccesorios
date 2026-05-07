@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
 import { obtenerProductos, crearProducto } from "./services/productoService";
 import { Layout } from "./layout/Layout";
 import { ListaProductos } from "./components/Productos/ListaProductos";
@@ -30,12 +30,12 @@ function App() {
 
   useEffect(() => {
     cargarProductos();
-  }, []);
+  }, []);   // Ejecuta cargarproductos automaticamente cuando carga la pagina
 
   const manejarCambio = (e: any) => {
     setProducto({
       ...producto,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value, // Actualiza el estado del producto con el valor del campo que se está editando
     });
   };
 
