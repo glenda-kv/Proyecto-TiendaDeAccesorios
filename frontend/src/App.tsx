@@ -13,15 +13,19 @@ function App() {
     descripcion: "",
     marca: "",
     color: "",
-    precio: 0,
-    stock: 0,
+    precio: "",
+    stock: "",
     categoria: "",
   });
 
-  const cargarProductos = () => {
-    obtenerProductos()
-      .then((data) => setProductos(data))
-      .catch((error) => console.log(error));
+  const cargarProductos = async () => {
+    try {
+      const data = await obtenerProductos();
+      setProductos(data);
+    } catch (error) {
+      console.log(error);
+      alert("Error al cargar productos");
+    }
   };
 
   useEffect(() => {
@@ -39,7 +43,7 @@ function App() {
     e.preventDefault();
 
     if (
-      producto.nombreProducto .trim() === "" ||
+      producto.nombreProducto.trim() === "" ||
       producto.descripcion.trim() === "" ||
       producto.marca.trim() === "" ||
       producto.color.trim() === "" ||
@@ -49,38 +53,49 @@ function App() {
       return;
     }
 
-    if (Number(producto.precio) <= 0 ) {
+    if (Number(producto.precio) <= 0) {
       alert("El precio debe ser mayor a 0");
       return;
     }
 
-    if (Number(producto.stock) < 0 ) {
+    if (Number(producto.stock) < 0) {
       alert("El stock no puede ser negativo");
       return;
     }
 
-    await crearProducto({
-      ...producto,
-      precio: Number(producto.precio),
-      stock: Number(producto.stock),
-    });
+    try {
+      await crearProducto({
+        ...producto,
+        precio: Number(producto.precio),
+        stock: Number(producto.stock),
+      });
 
-    setProducto({
-      nombreProducto: "",
-      descripcion: "",
-      marca: "",
-      color: "",
-      precio: 0,
-      stock: 0,
-      categoria: "",
-    });
+      alert("Producto agregado correctamente");
 
-    cargarProductos();
+      setProducto({
+        nombreProducto: "",
+        descripcion: "",
+        marca: "",
+        color: "",
+        precio: "",
+        stock: "",
+        categoria: "",
+      });
+
+      cargarProductos();
+    } catch (error) {
+      console.log(error);
+      alert("Error al guardar producto");
+    }
   };
 
   return (
     <Layout>
-      <h1>Gestión de Productos</h1>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h1 className="fw-bold text-primary">
+          Gestión de Productos
+        </h1>
+      </div>
 
       <FormularioProducto
         producto={producto}

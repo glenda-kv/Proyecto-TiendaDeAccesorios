@@ -10,75 +10,126 @@ export function FormularioProducto({
   guardarProducto,
 }: Props) {
   return (
-    <form onSubmit={guardarProducto} className="card p-4 mb-4">
-      <h3>Agregar Producto</h3>
+    <form
+      onSubmit={guardarProducto}
+      className="card shadow-sm border-0 p-4 mb-4"
+    >
+      <h3 className="mb-4 text-primary fw-bold">
+        Agregar Producto
+      </h3>
 
-      <input
-        className="form-control mb-2"
-        name="nombreProducto"
-        placeholder="Nombre"
-        value={producto.nombreProducto}
-        onChange={manejarCambio}
-      />
+      <div className="row">
+        <div className="col-md-6 mb-3">
+          <label className="form-label fw-semibold">
+            Nombre
+          </label>
 
-      <input
-        className="form-control mb-2"
-        name="descripcion"
-        placeholder="Descripción"
-        value={producto.descripcion}
-        onChange={manejarCambio}
-      />
+          <input
+            className="form-control"
+            name="nombreProducto"
+            placeholder="Ingrese nombre del producto"
+            value={producto.nombreProducto}
+            onChange={manejarCambio}
+          />
+        </div>
 
-      <input
-        className="form-control mb-2"
-        name="marca"
-        placeholder="Marca"
-        value={producto.marca}
-        onChange={manejarCambio}
-      />
+        <div className="col-md-6 mb-3">
+          <label className="form-label fw-semibold">
+            Marca
+          </label>
 
-      <input
-        className="form-control mb-2"
-        name="color"
-        placeholder="Color"
-        value={producto.color}
-        onChange={manejarCambio}
-      />
+          <input
+            className="form-control"
+            name="marca"
+            placeholder="Ingrese marca"
+            value={producto.marca}
+            onChange={manejarCambio}
+          />
+        </div>
+      </div>
 
-      <input
-        className="form-control mb-2"
-        name="precio"
-        type="number"
-        min="0"
-        placeholder="Precio"
-        value={producto.precio}
-        onChange={manejarCambio}
-      />
+      <div className="mb-3">
+        <label className="form-label fw-semibold">
+          Descripción
+        </label>
 
-      <input
-        className="form-control mb-2"
-        name="stock"
-        type="number"
-        min="0"
-        placeholder="Stock"
-        value={producto.stock}
-        onChange={manejarCambio}
-      />
+        <input
+          className="form-control"
+          name="descripcion"
+          placeholder="Ingrese descripción"
+          value={producto.descripcion}
+          onChange={manejarCambio}
+        />
+      </div>
 
-      <select
-        className="form-control mb-3"
-        name="categoria"
-        value={producto.categoria}
-        onChange={manejarCambio}
-      >
-        <option value="">Seleccione categoría</option>
-        <option value="Mochilas">Mochilas</option>
-        <option value="Carteras">Carteras</option>
-        <option value="Gorras">Gorras</option>
-        <option value="Bolsos">Bolsos</option>
-      </select>
+      <div className="row">
+        <div className="col-md-4 mb-3">
+          <label className="form-label fw-semibold">
+            Color
+          </label>
 
-      <button className="btn btn-primary" type="submit">
+          <input
+            className="form-control"
+            name="color"
+            placeholder="Ingrese color"
+            value={producto.color}
+            onChange={manejarCambio}
+          />
+        </div>
+
+        <div className="col-md-4 mb-3">
+          <label className="form-label fw-semibold">
+            Precio
+          </label>
+
+          <input
+            className="form-control"
+            name="precio"
+            type="number"
+            min="0"
+            placeholder="0"
+            value={producto.precio}
+            onChange={manejarCambio}
+          />
+        </div>
+
+        <div className="col-md-4 mb-3">
+          <label className="form-label fw-semibold">
+            Stock
+          </label>
+
+          <input
+            className="form-control"
+            name="stock"
+            type="number"
+            min="0"
+            placeholder="0"
+            value={producto.stock}
+            onChange={manejarCambio}
+          />
+        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="form-label fw-semibold">
+          Categoría
+        </label>
+
+        <select
+          className="form-select"
+          name="categoria"
+          value={producto.categoria}
+          onChange={manejarCambio}
+        >
+          <option value="">Seleccione categoría</option>
+          <option value="Mochilas">Mochilas</option>
+          <option value="Carteras">Carteras</option>
+          <option value="Gorras">Gorras</option>
+          <option value="Bolsos">Bolsos</option>
+        </select>
+      </div>
+
+      <button className="btn btn-primary w-100 fw-semibold" type="submit">
         Guardar Producto
       </button>
     </form>
