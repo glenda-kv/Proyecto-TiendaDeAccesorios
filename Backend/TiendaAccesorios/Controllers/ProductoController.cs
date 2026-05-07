@@ -55,9 +55,9 @@ namespace TiendaAccesorios.Controllers
 
             return Ok(producto);
         }
-        
+
         [HttpPost("agregar-producto")]
-        public async Task<ActionResult<AgregarProductoOutput>> CreateProducto([FromBody]AgregarProductoInput entrada)
+        public async Task<ActionResult<AgregarProductoOutput>> CreateProducto([FromBody] AgregarProductoInput entrada)
         {
             var categoria = await _contexto.Categorias
                 .FirstOrDefaultAsync(c => c.NombreCategoria.ToLower() == entrada.Categoria.ToLower());
@@ -227,7 +227,7 @@ namespace TiendaAccesorios.Controllers
 
             return Ok(productos);
         }
-  
+
 
     }
 }

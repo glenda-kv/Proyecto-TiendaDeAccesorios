@@ -1,4 +1,3 @@
-using System;
 using AutoMapper;
 using TiendaAccesorios.DTO.Categoria.ActualizarCategoria;
 using TiendaAccesorios.DTO.Categoria.AgregarCategoria;
@@ -46,11 +45,11 @@ public class MappingProfile : Profile
         CreateMap<Producto, ObtenerProductoOutput>()
             .ForMember(dest => dest.Categoria,
                        opt => opt.MapFrom(src => src.Categoria!.NombreCategoria));
-        
+
         CreateMap<Producto, BuscarProductosOutput>()
             .ForMember(dest => dest.Categoria,
                         opt => opt.MapFrom(src => src.Categoria!.NombreCategoria));
-        
+
         CreateMap<AgregarProductoInput, Producto>()
             .ForMember(dest => dest.IdProducto,
                        opt => opt.MapFrom(_ => Guid.NewGuid()))
@@ -64,7 +63,7 @@ public class MappingProfile : Profile
         CreateMap<Producto, AgregarProductoOutput>()
             .ForMember(dest => dest.Categoria,
                        opt => opt.MapFrom(src => src.Categoria!.NombreCategoria));
-        
+
         CreateMap<ActualizarProductoInput, Producto>()
             .ForMember(dest => dest.FechaActualizacion,
                        opt => opt.MapFrom(_ => DateTime.UtcNow))
@@ -80,7 +79,7 @@ public class MappingProfile : Profile
         CreateMap<Producto, ActualizarProductoOutput>()
             .ForMember(dest => dest.Categoria,
                        opt => opt.MapFrom(src => src.Categoria!.NombreCategoria));
-        
+
         CreateMap<Producto, ActualizarPrecioProductoOutput>();
 
         CreateMap<Producto, CambiarEstadoProductoOutput>();
@@ -95,7 +94,7 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Categoria,
                     opt => opt.MapFrom(src => src.Categoria!.NombreCategoria));
 
-        
+
         // VENTA
         CreateMap<Venta, ListarVentasOutput>()
             .ForMember(dest => dest.Cliente,
@@ -126,7 +125,7 @@ public class MappingProfile : Profile
                        opt => opt.MapFrom(src => src.Cliente!.NombreCompleto))
             .ForMember(dest => dest.Productos,
                        opt => opt.MapFrom(src => src.DetallesVenta));
-        
+
         CreateMap<Venta, CambiarEstadoVentaOutput>()
             .ForMember(dest => dest.Cliente,
                     opt => opt.MapFrom(src => src.Cliente!.NombreCompleto));

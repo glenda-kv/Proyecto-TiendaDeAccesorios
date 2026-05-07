@@ -25,7 +25,7 @@ namespace TiendaAccesorios.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("listar-categorias")] 
+        [HttpGet("listar-categorias")]
         [ActionName("ListarCategorias")]
         public async Task<ActionResult<ICollection<ListarCategoriasOutput>>> ListarCategorias()
         {
@@ -41,7 +41,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(categorias);
         }
 
-        [HttpGet("{id:guid}/obtener-categoria")] 
+        [HttpGet("{id:guid}/obtener-categoria")]
         [ActionName("ObtenerCategoria")]
         public async Task<ActionResult<ObtenerCategoriaOutput>> ObtenerCategoria(Guid id)
         {
@@ -55,9 +55,9 @@ namespace TiendaAccesorios.Controllers
 
             return Ok(categoria);
         }
-        
-        
-        [HttpPost("agregar-categoria")] 
+
+
+        [HttpPost("agregar-categoria")]
         [ActionName("AgregarCategoria")]
         public async Task<ActionResult<AgregarCategoriaOutput>> AgregarCategoria([FromBody] AgregarCategoriaInput entrada)
         {
@@ -98,7 +98,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(salida);
         }
 
-        
+
         [HttpPatch("{id:guid}/estado")]
         [ActionName("CambiarEstadoCategoria")]
         public async Task<ActionResult<CambiarEstadoCategoriaOutput>> CambiarEstadoCategoria(Guid id, [FromBody] CambiarEstadoCategoriaInput entrada)

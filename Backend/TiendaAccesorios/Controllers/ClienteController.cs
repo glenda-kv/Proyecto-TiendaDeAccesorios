@@ -45,7 +45,7 @@ public class ClienteController : BaseApiController
         return Ok(clientes);
     }
 
-    
+
     [HttpGet("{id:guid}/obtener-cliente")]
     [ActionName("ObtenerCliente")]
     public async Task<ActionResult<ObtenerClienteOutput>> ObtenerCliente(Guid id)
@@ -208,5 +208,5 @@ public class ClienteController : BaseApiController
         var salida = _mapper.Map<CambiarEstadoClienteOutput>(cliente);
         return Ok(salida);
     }
-    
+
 }

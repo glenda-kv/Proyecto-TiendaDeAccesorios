@@ -25,7 +25,7 @@ public class VentaController : BaseApiController
         _contexto = contexto;
         _mapper = mapper;
     }
-    
+
     [HttpGet("ListarVentas")]
     [ActionName("ListarVentas")]
     public async Task<ActionResult<ICollection<ListarVentasOutput>>> ListarVentas()
@@ -278,5 +278,5 @@ public class VentaController : BaseApiController
         return Ok(salida);
     }
 
-    
+
 }
