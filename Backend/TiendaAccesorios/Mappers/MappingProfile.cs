@@ -1,5 +1,18 @@
 using System;
 using AutoMapper;
+using TiendaAccesorios.DTO.Categoria.ActualizarCategoria;
+using TiendaAccesorios.DTO.Categoria.AgregarCategoria;
+using TiendaAccesorios.DTO.Categoria.CambiarEstadoCategoria;
+using TiendaAccesorios.DTO.Categoria.ListarCategorias;
+using TiendaAccesorios.DTO.Categoria.ObtenerCategoria;
+using TiendaAccesorios.DTO.Cliente.ActualizarCliente;
+using TiendaAccesorios.DTO.Cliente.AgregarCliente;
+using TiendaAccesorios.DTO.Cliente.BuscarClienteCi;
+using TiendaAccesorios.DTO.Cliente.BuscarClientePorNombre;
+using TiendaAccesorios.DTO.Cliente.CambiarEstadoCliente;
+using TiendaAccesorios.DTO.Cliente.HistorialComprasCliente;
+using TiendaAccesorios.DTO.Cliente.ListarClientes;
+using TiendaAccesorios.DTO.Cliente.ObtenerCliente;
 using TiendaAccesorios.DTO.Producto;
 using TiendaAccesorios.DTO.Producto.ActualizarPrecioProducto;
 using TiendaAccesorios.DTO.Producto.ActualizarProducto;
@@ -122,5 +135,61 @@ public class MappingProfile : Profile
             .ForMember(dest => dest.Cliente,
                     opt => opt.MapFrom(src => src.Cliente!.NombreCompleto));
 
+        // CATEGORIA
+
+        CreateMap<Categoria, ListarCategoriasOutput>();
+
+        CreateMap<Categoria, ObtenerCategoriaOutput>();
+
+        CreateMap<AgregarCategoriaInput, Categoria>()
+            .ForMember(dest => dest.EstaActivo,
+                    opt => opt.MapFrom(_ => true));
+        CreateMap<Categoria, AgregarCategoriaOutput>();
+
+        CreateMap<ActualizarCategoriaInput, Categoria>()
+            .ForMember(dest => dest.IdCategoria, opt => opt.Ignore())
+            .ForMember(dest => dest.EstaActivo, opt => opt.Ignore());
+        CreateMap<Categoria, ActualizarCategoriaOutput>();
+
+        CreateMap<Categoria, CambiarEstadoCategoriaOutput>();
+
+        // CLIENTE
+
+        CreateMap<Cliente, ListarClientesOutput>();
+
+        CreateMap<Cliente, ObtenerClienteOutput>();
+
+        CreateMap<Cliente, BuscarClienteCiOutput>();
+
+        CreateMap<Cliente, BuscarClientePorNombreOutput>();
+
+        CreateMap<DetalleVenta, DetalleOutput>()
+            .ForMember(dest => dest.NombreProducto,
+                    opt => opt.MapFrom(src => src.Producto!.NombreProducto))
+            .ForMember(dest => dest.Marca,
+                    opt => opt.MapFrom(src => src.Producto!.Marca));
+        CreateMap<Venta, HistorialComprasPorClienteOutput>()
+            .ForMember(dest => dest.Detalles,
+                    opt => opt.MapFrom(src => src.DetallesVenta));
+
+        CreateMap<AgregarClienteInput, Cliente>()
+            .ForMember(dest => dest.EstaActivo,
+                    opt => opt.MapFrom(_ => true))
+            .ForMember(dest => dest.FechaRegistro,
+                    opt => opt.MapFrom(_ => DateTime.UtcNow))
+            .ForMember(dest => dest.Complemento, opt => opt.Ignore())
+            .ForMember(dest => dest.NombreCompleto, opt => opt.Ignore());
+        CreateMap<Cliente, AgregarClienteOutput>();
+
+        CreateMap<ActualizarClienteInput, Cliente>()
+            .ForMember(dest => dest.IdCliente, opt => opt.Ignore())
+            .ForMember(dest => dest.EstaActivo, opt => opt.Ignore())
+            .ForMember(dest => dest.FechaRegistro, opt => opt.Ignore())
+            .ForMember(dest => dest.FechaActualizacion, opt => opt.Ignore())
+            .ForMember(dest => dest.Complemento, opt => opt.Ignore())
+            .ForMember(dest => dest.NombreCompleto, opt => opt.Ignore());
+        CreateMap<Cliente, ActualizarClienteOutput>();
+
+        CreateMap<Cliente, CambiarEstadoClienteOutput>();
     }
 }

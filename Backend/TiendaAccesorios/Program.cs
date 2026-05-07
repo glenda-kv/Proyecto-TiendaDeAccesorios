@@ -44,7 +44,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// AQUI ACTIVAS CORS
+
 app.UseCors("FrontendReact");
 
 app.UseAuthorization();

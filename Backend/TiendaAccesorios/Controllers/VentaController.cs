@@ -9,6 +9,7 @@ using TiendaAccesorios.DTO.Venta.CambiarEstadoVenta;
 using TiendaAccesorios.DTO.Venta.GenerarVenta;
 using TiendaAccesorios.DTO.Venta.ListarVentas;
 using TiendaAccesorios.DTO.Venta.ObtenerVenta;
+using TiendaAccesorios.DTO.Venta.Query;
 using TiendaAccesorios.DTO.Venta.ResumenVentas;
 using TiendaAccesorios.Entidades;
 
@@ -25,7 +26,7 @@ public class VentaController : BaseApiController
         _mapper = mapper;
     }
     
-    [HttpGet("listar")]
+    [HttpGet("ListarVentas")]
     [ActionName("ListarVentas")]
     public async Task<ActionResult<ICollection<ListarVentasOutput>>> ListarVentas()
     {
@@ -40,7 +41,7 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("{id:guid}/obtener-venta")]
     [ActionName("ObtenerVenta")]
     public async Task<ActionResult<ObtenerVentaOutput>> ObtenerVenta(Guid id)
     {
@@ -56,20 +57,21 @@ public class VentaController : BaseApiController
     }
 
 
-    [HttpPost]
-    public async Task<ActionResult<GenerarVentaOutput>> CreateVenta([FromBody] GenerarVentaInput entrada)
+    [HttpPost("generar-venta")]
+    [ActionName("GenerarVenta")]
+    public async Task<ActionResult<GenerarVentaOutput>> GenerarVenta([FromBody] GenerarVentaInput entrada)
     {
         var cliente = await _contexto.Clientes
             .FirstOrDefaultAsync(c => c.Ci == entrada.Ci &&
-                                      c.Complemento == entrada.Complemento &&
-                                      c.EstaActivo);
+                                    c.Complemento == entrada.Complemento &&
+                                    c.EstaActivo);
 
         if (cliente is null)
             return NotFound(new { mensaje = "Cliente no encontrado." });
 
         var idsProductos = entrada.Productos.Select(p => p.IdProducto).ToList();
 
-        var hayDuplicados = idsProductos.Count != idsProductos.Distinct().Count();
+        var hayDuplicados = idsProductos.Any(id => idsProductos.Count(x => x == id) > 1);
         if (hayDuplicados)
             return BadRequest(new { mensaje = "No puede ingresar el mismo producto más de una vez." });
 
@@ -77,7 +79,8 @@ public class VentaController : BaseApiController
             .Where(p => idsProductos.Contains(p.IdProducto) && p.EstaActivo)
             .ToListAsync();
 
-        if (productos.Count != idsProductos.Count)
+        var hayProductosNoEncontrados = idsProductos.Any(id => !productos.Any(p => p.IdProducto == id));
+        if (hayProductosNoEncontrados)
             return NotFound(new { mensaje = "Uno o más productos no fueron encontrados." });
 
         foreach (var detalle in entrada.Productos)
@@ -168,18 +171,18 @@ public class VentaController : BaseApiController
         return Ok(salida);
     }
 
-    [HttpGet("listas-venta-por-cliente")]
+
+    [HttpGet("listar-ventas-por-cliente")]
     [ActionName("ListarVentasPorCliente")]
     public async Task<ActionResult<ICollection<ObtenerVentaOutput>>> ListarVentasPorCliente(
-        [FromQuery] int? ci,
-        [FromQuery] string? nombre)
+        [FromQuery] ListarVentasPorClienteQuery entrada)
     {
-        if (ci is null && nombre is null)
+        if (entrada.Ci is null && entrada.Nombre is null)
             return BadRequest(new { mensaje = "Debe ingresar al menos el CI o el nombre del cliente." });
 
         var ventas = await _contexto.Ventas
-            .Where(v => (ci == null || v.Cliente!.Ci == ci) &&
-                        (nombre == null || v.Cliente!.NombreCompleto.Contains(nombre)))
+            .Where(v => (entrada.Ci == null || v.Cliente!.Ci == entrada.Ci) &&
+                        (entrada.Nombre == null || v.Cliente!.NombreCompleto.Contains(entrada.Nombre)))
             .OrderByDescending(v => v.FechaVenta)
             .ProjectTo<ObtenerVentaOutput>(_mapper.ConfigurationProvider)
             .ToListAsync();
@@ -190,7 +193,8 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("listar-ventas-por-estado")]
+
+    [HttpGet("ventas-por-estado")]
     [ActionName("ListarVentasPorEstado")]
     public async Task<ActionResult<ICollection<ObtenerVentaOutput>>> ListarVentasPorEstado(
         [FromQuery] string estado)
@@ -207,18 +211,17 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("listar-ventas-por-fecha")]
+    [HttpGet("ventas-por-fecha")]
     [ActionName("ListarVentasPorFecha")]
     public async Task<ActionResult<ICollection<ObtenerVentaOutput>>> ListarVentasPorFecha(
-        [FromQuery] DateTime desde,
-        [FromQuery] DateTime hasta)
+        [FromQuery] VentasPorFechaQuery entrada)
     {
-        if (desde > hasta)
-            return BadRequest(new { mensaje = "La fecha inicio no puede ser mayor a la fecha fin." });
+        if (entrada.Desde > entrada.Hasta)
+            return BadRequest(new { mensaje = "La fecha de inicio no puede ser mayor a la fecha final." });
 
         var ventas = await _contexto.Ventas
-            .Where(v => v.FechaVenta.Date >= desde.Date &&
-                        v.FechaVenta.Date <= hasta.Date)
+            .Where(v => v.FechaVenta.Date >= entrada.Desde.Date &&
+                        v.FechaVenta.Date <= entrada.Hasta.Date)
             .OrderByDescending(v => v.FechaVenta)
             .ProjectTo<ObtenerVentaOutput>(_mapper.ConfigurationProvider)
             .ToListAsync();
@@ -229,7 +232,7 @@ public class VentaController : BaseApiController
         return Ok(ventas);
     }
 
-    [HttpGet("listar-ventas-por-metodo-pago")]
+    [HttpGet("ventas-por-metodo-pago")]
     [ActionName("ListarVentasPorMetodoPago")]
     public async Task<ActionResult<ICollection<ListarVentasOutput>>> ListarVentasPorMetodoPago(
         [FromQuery] string metodoPago)
@@ -249,16 +252,15 @@ public class VentaController : BaseApiController
     [HttpGet("resumen-ventas-por-fecha")]
     [ActionName("ResumenVentas")]
     public async Task<ActionResult<ResumenVentasOutput>> ResumenVentas(
-        [FromQuery] DateTime desde,
-        [FromQuery] DateTime hasta)
+        [FromQuery] VentasPorFechaQuery entrada)
     {
-        if (desde > hasta)
+        if (entrada.Desde > entrada.Hasta)
             return BadRequest(new { mensaje = "La fecha inicio no puede ser mayor a la fecha fin." });
 
         var ventas = await _contexto.Ventas
             .Include(v => v.DetallesVenta)
-            .Where(v => v.FechaVenta.Date >= desde.Date &&
-                        v.FechaVenta.Date <= hasta.Date)
+            .Where(v => v.FechaVenta.Date >= entrada.Desde.Date &&
+                        v.FechaVenta.Date <= entrada.Hasta.Date)
             .ToListAsync();
 
         if (!ventas.Any())
@@ -266,8 +268,8 @@ public class VentaController : BaseApiController
 
         var salida = new ResumenVentasOutput
         {
-            Desde = desde,
-            Hasta = hasta,
+            Desde = entrada.Desde,
+            Hasta = entrada.Hasta,
             TotalVentas = ventas.Count,
             TotalIngresos = ventas.Sum(v => v.Total),
             TotalProductosVendidos = ventas.Sum(v => v.DetallesVenta.Sum(d => d.Cantidad))
@@ -275,16 +277,6 @@ public class VentaController : BaseApiController
 
         return Ok(salida);
     }
-
-
-
-
-
-
-
-
-
-
 
     
 }

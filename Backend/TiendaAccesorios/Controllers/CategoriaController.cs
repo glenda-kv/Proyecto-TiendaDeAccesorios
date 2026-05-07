@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,138 +16,106 @@ namespace TiendaAccesorios.Controllers
     public class CategoriaController : BaseApiController
     {
         private readonly AppDbContext _contexto;
+        private readonly IMapper _mapper;
 
-        public CategoriaController(AppDbContext contexto)
+
+        public CategoriaController(AppDbContext contexto, IMapper mapper)
         {
             _contexto = contexto;
+            _mapper = mapper;
         }
 
-        [HttpGet("ListarTodos")]
-        public async Task<ActionResult<ICollection<ListarCategoriasOutput>>> GetCategorias()
+        [HttpGet("listar-categorias")] 
+        [ActionName("ListarCategorias")]
+        public async Task<ActionResult<ICollection<ListarCategoriasOutput>>> ListarCategorias()
         {
             var categorias = await _contexto.Categorias
-                .AsNoTracking()
                 .Where(x => x.EstaActivo)
-                .Select(x => new ListarCategoriasOutput
-                {
-                    IdCategoria     = x.IdCategoria,
-                    NombreCategoria = x.NombreCategoria,
-                    Descripcion     = x.Descripcion
-                })
+                .OrderBy(x => x.NombreCategoria)
+                .ProjectTo<ListarCategoriasOutput>(_mapper.ConfigurationProvider)
                 .ToListAsync();
+
+            if (!categorias.Any())
+                return NotFound(new { mensaje = "No hay categorías registradas." });
 
             return Ok(categorias);
         }
 
-        [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ObtenerCategoriaOutput>> GetCategoria(Guid id)
+        [HttpGet("{id:guid}/obtener-categoria")] 
+        [ActionName("ObtenerCategoria")]
+        public async Task<ActionResult<ObtenerCategoriaOutput>> ObtenerCategoria(Guid id)
         {
             var categoria = await _contexto.Categorias
-                .AsNoTracking()
                 .Where(x => x.IdCategoria == id)
-                .Select(x => new ObtenerCategoriaOutput
-                {
-                    IdCategoria     = x.IdCategoria,
-                    NombreCategoria = x.NombreCategoria,
-                    Descripcion     = x.Descripcion,
-                    EstaActivo      = x.EstaActivo
-                })
+                .ProjectTo<ObtenerCategoriaOutput>(_mapper.ConfigurationProvider)
                 .FirstOrDefaultAsync();
 
             if (categoria is null)
-                return NotFound($"No se encontró la categoría con ID {id}");
+                return NotFound(new { mensaje = "Categoría no encontrada." });
 
             return Ok(categoria);
         }
         
-        // POST: api/categorias
-        [HttpPost]
-        public async Task<ActionResult<AgregarCategoriaOutput>> CreateCategoria([FromBody] AgregarCategoriaInput categoria)
+        
+        [HttpPost("agregar-categoria")] 
+        [ActionName("AgregarCategoria")]
+        public async Task<ActionResult<AgregarCategoriaOutput>> AgregarCategoria([FromBody] AgregarCategoriaInput entrada)
         {
             var existeNombre = await _contexto.Categorias
-                .AnyAsync(x => x.NombreCategoria == categoria.NombreCategoria);
+                .AnyAsync(x => x.NombreCategoria == entrada.NombreCategoria);
 
             if (existeNombre)
-                return Conflict($"Ya existe una categoría con el nombre '{categoria.NombreCategoria}'.");
+                return Conflict(new { mensaje = $"Ya existe una categoría con el nombre '{entrada.NombreCategoria}'." });
 
-            var entrada = new Categoria
-            {
-                NombreCategoria = categoria.NombreCategoria,
-                Descripcion     = categoria.Descripcion,
-                EstaActivo      = true
-            };
+            var categoria = _mapper.Map<Categoria>(entrada);
 
-            _contexto.Categorias.Add(entrada);
+            _contexto.Categorias.Add(categoria);
             await _contexto.SaveChangesAsync();
 
-            var salida = new AgregarCategoriaOutput
-            {
-                IdCategoria     = entrada.IdCategoria,
-                NombreCategoria = entrada.NombreCategoria,
-                Descripcion     = entrada.Descripcion
-            };
-
-            return CreatedAtAction(nameof(GetCategoria), new { id = salida.IdCategoria }, salida);
+            var salida = _mapper.Map<AgregarCategoriaOutput>(categoria);
+            return CreatedAtAction(nameof(ObtenerCategoria), new { id = categoria.IdCategoria }, salida);
         }
 
-        [HttpPut("{id:guid}")]
-        public async Task<ActionResult<ActualizarCategoriaOutput>> UpdateCategoria(Guid id, [FromBody] ActualizarCategoriaInput entrada)
+        [HttpPut("{id:guid}/actualizar")]
+        [ActionName("ActualizarCategoria")]
+        public async Task<ActionResult<ActualizarCategoriaOutput>> ActualizarCategoria(Guid id, [FromBody] ActualizarCategoriaInput entrada)
         {
             var categoria = await _contexto.Categorias.FindAsync(id);
 
             if (categoria is null)
-                return NotFound($"No se encontró la categoría con ID {id}.");
+                return NotFound(new { mensaje = "Categoría no encontrada." });
 
             var existeNombre = await _contexto.Categorias
                 .AnyAsync(x => x.NombreCategoria == entrada.NombreCategoria && x.IdCategoria != id);
 
             if (existeNombre)
-                return Conflict($"Ya existe una categoría con el nombre '{entrada.NombreCategoria}'.");
+                return Conflict(new { mensaje = $"Ya existe una categoría con el nombre '{entrada.NombreCategoria}'." });
 
-            categoria.NombreCategoria = entrada.NombreCategoria;
-            categoria.Descripcion     = entrada.Descripcion;
-
+            _mapper.Map(entrada, categoria);
             await _contexto.SaveChangesAsync();
 
-            var salida = new ActualizarCategoriaOutput
-            {
-                IdCategoria     = categoria.IdCategoria,
-                NombreCategoria = categoria.NombreCategoria,
-                Descripcion     = categoria.Descripcion,
-                EstaActivo      = categoria.EstaActivo
-            };
-
+            var salida = _mapper.Map<ActualizarCategoriaOutput>(categoria);
             return Ok(salida);
         }
 
         
         [HttpPatch("{id:guid}/estado")]
-        public async Task<ActionResult<CambiarEstadoCategoriaOutput>> PatchEstadoCategoria(Guid id, [FromBody] CambiarEstadoCategoriaInput entrada)
+        [ActionName("CambiarEstadoCategoria")]
+        public async Task<ActionResult<CambiarEstadoCategoriaOutput>> CambiarEstadoCategoria(Guid id, [FromBody] CambiarEstadoCategoriaInput entrada)
         {
-            if (entrada.EstaActivo is null)
-                return BadRequest("El estado es obligatorio.");
-
             var categoria = await _contexto.Categorias.FindAsync(id);
 
             if (categoria is null)
-                return NotFound($"No se encontró la categoría con ID {id}.");
+                return NotFound(new { mensaje = "Categoría no encontrada." });
 
-            if (categoria.EstaActivo == entrada.EstaActivo.Value)
-                return Conflict($"La categoría ya se encuentra {(entrada.EstaActivo.Value ? "activa" : "inactiva")}.");
+            if (categoria.EstaActivo == entrada.EstaActivo!.Value)
+                return Conflict(new { mensaje = $"La categoría ya se encuentra {(entrada.EstaActivo.Value ? "activa" : "inactiva")}." });
 
             categoria.EstaActivo = entrada.EstaActivo.Value;
-
             await _contexto.SaveChangesAsync();
 
-            var salida = new CambiarEstadoCategoriaOutput
-            {
-                IdCategoria     = categoria.IdCategoria,
-                NombreCategoria = categoria.NombreCategoria,
-                EstaActivo      = categoria.EstaActivo
-            };
-
+            var salida = _mapper.Map<CambiarEstadoCategoriaOutput>(categoria);
             return Ok(salida);
         }
-        
     }
 }

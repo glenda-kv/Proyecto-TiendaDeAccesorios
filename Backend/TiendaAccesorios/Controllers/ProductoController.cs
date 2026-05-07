@@ -30,7 +30,7 @@ namespace TiendaAccesorios.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("ListarTodosProductos")]
+        [HttpGet("ListarProductos")]
         public async Task<ActionResult<ICollection<ListarProductosOutput>>> GetProductos()
         {
             var productos = await _contexto.Productos
@@ -42,7 +42,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(productos);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:guid}/obtener-producto")]
         public async Task<ActionResult<ObtenerProductoOutput>> GetProducto(Guid id)
         {
             var producto = await _contexto.Productos
@@ -56,7 +56,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(producto);
         }
         
-        [HttpPost]
+        [HttpPost("agregar-producto")]
         public async Task<ActionResult<AgregarProductoOutput>> CreateProducto([FromBody]AgregarProductoInput entrada)
         {
             var categoria = await _contexto.Categorias
@@ -76,7 +76,7 @@ namespace TiendaAccesorios.Controllers
             return CreatedAtAction(nameof(GetProducto), new { id = producto.IdProducto }, salida);
         }
 
-        [HttpPut("{id:guid}")]
+        [HttpPut("{id:guid}/actualizar")]
         public async Task<ActionResult<ActualizarProductoOutput>> UpdateProducto(Guid id, [FromBody] ActualizarProductoInput entrada)
         {
             var producto = await _contexto.Productos
@@ -102,7 +102,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(salida);
         }
 
-        [HttpPatch("{id:guid}/precio")]
+        [HttpPatch("{id:guid}/modificar-precio")]
         public async Task<ActionResult<ActualizarPrecioProductoOutput>> ActualizarPrecio(Guid id, [FromBody] ActualizarPrecioProductoInput entrada)
         {
             var producto = await _contexto.Productos
@@ -138,7 +138,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(salida);
         }
 
-        [HttpPatch("{id:guid}/stock")]
+        [HttpPatch("{id:guid}/ingresar-stock")]
         public async Task<ActionResult<IngresoStockProductoOutput>> AgregarStock(Guid id, [FromBody] IngresoStockProductoInput entrada)
         {
             var producto = await _contexto.Productos
@@ -197,7 +197,7 @@ namespace TiendaAccesorios.Controllers
             return Ok(productos);
         }
 
-        [HttpGet("stock-bajo")]
+        [HttpGet("listar-stock-bajo")]
         [ActionName("ListarProductosStockBajo")]
         public async Task<ActionResult<ICollection<StockBajoProductosOutput>>> ListarProductosStockBajo([FromQuery] int bajo = 5)
         {
